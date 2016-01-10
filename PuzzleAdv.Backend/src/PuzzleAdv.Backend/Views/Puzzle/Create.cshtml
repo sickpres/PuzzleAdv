@@ -1,0 +1,345 @@
+@{
+    Layout = "~/Views/Shared/_Layout_2.cshtml";
+    ViewData["Title"] = "Nuovo Puzzle";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>Nuovo Puzzle</h5>
+        </div>
+        <div class="ibox-content">
+
+            <form id="form" asp-action="Create" method="post" class="wizard-big">
+                <h1>Data di inizio e raggio d'azione</h1>
+                <fieldset>
+                    <h2>Da che giorno vorresti pubblicare il puzzle?</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group" id="startDateDiv">
+                                <p></p>
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center">
+                                <div style="margin-top: 20px">
+                                    <i class="fa fa-calendar" style="font-size: 150px;color: #e5e5e5 "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <br /><br />
+                    </div>
+
+                    <h2>Entro che raggio, rispetto al tuo negozio, vorresti che venga visualizzato il puzzle?</h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <p></p>
+                                <div id="ionrange_1"></div>
+                                <input type="hidden" id="distance" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center">
+                                <div style="margin-top: 20px">
+                                    <i class="fa fa-map-marker" style="font-size: 150px;color: #e5e5e5 "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <h1>Immagine 16:9</h1>
+                <fieldset>
+                    <h2>Configura l'immagine per schermi a 16:9</h2>
+                    <!-- Image Cropper -->
+                    @Html.Partial("_ImageCropperPartial1")
+                </fieldset>
+
+                <h1>Immagine 4:3</h1>
+                <fieldset>
+
+                    <h2>Configura l'immagine per schermi a 4:3</h2>
+                    <!-- Image Cropper -->
+                    @Html.Partial("_ImageCropperPartial2")
+                </fieldset>
+
+                <h1>Termini e condizioni</h1>
+                <fieldset>
+                    <h2>Termini e condizioni</h2>
+                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Accetto i termini e le condizioni.</label>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.min.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib_bower/moment/moment.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js"></script>
+        <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
+        <script src="~/lib_bower/cropper/dist/cropper.js"></script>
+        <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+        <script src="~/lib/steps/jquery.steps.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib_bower/moment/moment.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js"></script>
+        <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
+        <script src="~/lib_bower/cropper/dist/cropper.min.js"></script>
+        <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+        <script src="~/lib/steps/jquery.steps.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+
+            // *** steps ***
+
+            $("#form").steps({
+                bodyTag: "fieldset",
+                labels: {
+                    next: "Avanti",
+                    previous: "Indietro",
+                    finish: "Invia",
+                    loading: "Loading ..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 1 && $("#StartDate").val() === '') {
+                        return false;
+                    }
+
+                    return true;
+
+                    // Start validation; Prevent going forward if false
+                    //return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+
+                    var form = $('#form');
+                    var formData = new FormData(form.get(0)); //get AntiForgeryToken
+
+                    $image1.cropper('getCroppedCanvas').toBlob(function (blob) {
+
+                        formData.append('croppedImage1', blob);
+
+                        $image2.cropper('getCroppedCanvas').toBlob(function (blob) {
+
+                            formData.append('croppedImage2', blob);
+
+                            //todo: verificare se fattibile aggiunta di attributo ValidateAntiForgeryToken alla Action
+                            $.ajax('/Puzzle/Create', {
+                                method: "POST",
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function () {
+                                    console.log('Upload success');
+                                    var url = '@Url.Action("Index", "Puzzle")';
+                                    window.location.href = url;
+                                },
+                                error: function () {
+                                    console.log('Upload error');
+                                }
+
+                            });
+
+                        });
+
+                    });
+                }
+            });
+
+
+            // *** datePicker ***
+
+            $('#startDateDiv .input-group.date').datepicker({
+                startDate: '0d',
+                language: 'it',
+                todayHighlight: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            // *** slider ***
+
+            $("#ionrange_1").ionRangeSlider({
+                postfix: "Km",
+                hasGrid: true,
+                min: 10,
+                max: 50
+            });
+
+
+            // *** cropper *** --> see view _ImageCropperPartial
+
+            var $image1 = $("#img-crop-1 > img")
+            $($image1).cropper({
+                aspectRatio: 0.666666667,
+                preview: "#img-preview-1",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+            var $image2 = $("#img-crop-2 > img")
+            $($image2).cropper({
+                aspectRatio: 0.8585858585858586,
+                preview: "#img-preview-2",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+
+            var $inputImage1 = $("#inputImage1");
+            if (window.FileReader) {
+                $inputImage1.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage1.val("");
+                            $image1.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            var $inputImage2 = $("#inputImage2");
+            if (window.FileReader) {
+                $inputImage2.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage2.val("");
+                            $image2.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+
+            $("#zoomIn1").click(function () {
+                $image1.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut1").click(function () {
+                $image1.cropper("zoom", -0.1);
+            });
+
+            $("#moveLeft1").click(function () {
+                $image1.cropper("move", -1, 0);
+            });
+
+            $("#moveRight1").click(function () {
+                $image1.cropper("move", 1, 0);
+            });
+
+            $("#moveUp1").click(function () {
+                $image1.cropper("move", 0, -1);
+            });
+
+            $("#moveDown1").click(function () {
+                $image1.cropper("move", 0, 1);
+            });
+
+            $("#zoomIn2").click(function () {
+                $image1.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut2").click(function () {
+                $image2.cropper("zoom", -0.1);
+            });
+
+            $("#moveLeft2").click(function () {
+                $image2.cropper("move", -1, 0);
+            });
+
+            $("#moveRight2").click(function () {
+                $image2.cropper("move", 1, 0);
+            });
+
+            $("#moveUp2").click(function () {
+                $image2.cropper("move", 0, -1);
+            });
+
+            $("#moveDown2").click(function () {
+                $image2.cropper("move", 0, 1);
+            });
+
+        });
+
+    </script>
+}
+
+
+
