@@ -16,8 +16,9 @@ namespace PuzzleAdv.Backend.Models
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public DateTime InsertDate { get; set; }
+        public int Distance { get; set; }
 
+        public DateTime InsertDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public DateTime? LastUpdateDate { get; set; }
         public string InsertUserId { get; set; }

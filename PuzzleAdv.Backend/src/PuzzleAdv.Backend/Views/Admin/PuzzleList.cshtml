@@ -1,0 +1,95 @@
+@model IEnumerable<PuzzleAdv.Backend.ViewModels.Admin.AdminListViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    ViewData["Title"] = "Elenco Puzzle";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>Elenco Puzzle</h5>
+        </div>
+        <div class="ibox-content">
+
+            <table class="table table-striped table-bordered table-hover puzzle-list-table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.IDNumber)</th>
+                        <th>@Html.DisplayNameFor(model => model.InsertDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.ShopTitle)</th>
+                        <th>@Html.DisplayNameFor(model => model.ShopCity)</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+
+                        <tr class="gradeX">
+                            <td>@Html.DisplayFor(modelItem => item.IDNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.InsertDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ShopTitle)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ShopCity)</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button class="btn-white btn btn-xs" asp-action="Edit" asp-route-id="@item.ID">Gestisci</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Styles {
+    <environment names="Development,Staging,Production">
+        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/dataTables/datatables.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.puzzle-list-table').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                columnDefs: [ { orderable: false, targets: [4] } ],
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+}

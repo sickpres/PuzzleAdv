@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 using PuzzleAdv.Backend.Models;
 using System.Security.Claims;
@@ -11,6 +10,7 @@ using Microsoft.AspNet.Http;
 using System.IO;
 using PuzzleAdv.Backend.ViewModels.Puzzle;
 using Microsoft.Data.Entity;
+
 
 namespace PuzzleAdv.Backend.Controllers
 {
@@ -45,19 +45,31 @@ namespace PuzzleAdv.Backend.Controllers
         // POST: Campaigns/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile croppedImage1, IFormFile croppedImage2, int distance)
+        public IActionResult Create(IFormFile croppedImage1, IFormFile croppedImage2, DateTime? startDate, int distance)
         {
             //Save image
             var uploads = Path.Combine(_environment.WebRootPath, "Uploads");
             if (croppedImage1.Length > 0 && croppedImage2.Length > 0)
             {
                 var puzzleImageId = Guid.NewGuid().ToString();
-                var fileName = string.Format("{0}.png", puzzleImageId);
-                await croppedImage1.SaveAsAsync(Path.Combine(uploads, fileName));
-                await croppedImage2.SaveAsAsync(Path.Combine(uploads, "Small", fileName));
+                var fileName = string.Format("{0}.jpg", puzzleImageId);
+
+                croppedImage1.SaveAs(Path.Combine(uploads, fileName));
+
+                ImageResizer.ImageJob img1 = new ImageResizer.ImageJob(Path.Combine(uploads, fileName), Path.Combine(uploads, "16-9", "400", fileName),
+                                new ImageResizer.Instructions("maxheight=400;&scale=both;format=jpg;mode=max"));
+
+                img1.Build();
+
+                ImageResizer.ImageJob img2 = new ImageResizer.ImageJob(Path.Combine(uploads, fileName), Path.Combine(uploads, "16-9", "1065", fileName), 
+                                                new ImageResizer.Instructions("maxheight=1065;&scale=both;format=jpg;mode=max"));
+
+                img2.Build();
 
                 Puzzle newPuzzle = new Puzzle();
                 newPuzzle.PuzzleImage = puzzleImageId;
+                newPuzzle.StartDate = startDate;
+                newPuzzle.Distance = distance;
                 newPuzzle.InsertDate = DateTime.Now;
                 newPuzzle.InsertUserId = HttpContext.User.GetUserId();
                 newPuzzle.ShopId = 2;
@@ -67,7 +79,6 @@ namespace PuzzleAdv.Backend.Controllers
                 {
                     _context.Puzzle.Add(newPuzzle);
                     _context.SaveChanges();
-                    return RedirectToAction("Index");
                 }
             }
 

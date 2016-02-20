@@ -1626,44 +1626,6 @@ label.error {
   border-left: 6px solid $navy;
 }
 
-/* Image cropper style */
-.img-crop {
-  overflow: hidden;
-  text-align: center;
-  min-height: 620px;
-  max-height: 620px;
-  border: #CCCCCC solid 1px;
-}
-
-.img-mockup {
-  width: 100%;
-  text-align: center; }
-
-.img-mockup-1 {
-  padding-top: 118px;
-  background: url("../Images/iphone6plus.png") center no-repeat;
-  background-size: contain;
-  min-height: 620px;
-  max-height: 620px; }
-
-.img-mockup-2 {
-  padding-top: 170px;
-  background: url("../Images/iphone4.png") center no-repeat;
-  background-size: contain;
-  min-height: 620px;
-  max-height: 620px; }
-
-.img-preview-1 {
-  margin: 0 auto;
-  overflow: hidden;
-  height: 393px;
-  width: 262px; }
-
-.img-preview-2 {
-  margin: 0 auto;
-  overflow: hidden;
-  height: 297px;
-  width: 254px; }
 
 /* Forum styles  */
 .forum-post-container .media {

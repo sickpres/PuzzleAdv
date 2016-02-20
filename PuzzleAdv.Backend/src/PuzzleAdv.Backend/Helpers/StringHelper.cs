@@ -65,5 +65,43 @@ namespace PuzzleAdv.Backend.Helpers
             return returnVal;
         }
 
+        public static string GetStatusInfo(Models.Prize prize)
+        {
+            string returnVal = "";
+
+            switch ((EnumHelper.PrizeStatus)prize.Status)
+            {
+
+                case EnumHelper.PrizeStatus.ReadyToProduction:
+
+                    returnVal = "Il premio sarà pubblicato insieme al primo puzzle";
+
+                    break;
+
+                case EnumHelper.PrizeStatus.InProduction:
+
+                    returnVal = "Pubblicato da 10 giorni <br><br>";
+                    break;
+
+                case EnumHelper.PrizeStatus.Paused:
+
+                    returnVal = "Fermato da 2 giorni <br><br>";
+                    break;
+
+                case EnumHelper.PrizeStatus.Deleted:
+
+                    returnVal = "Cancellato da 5 giorni <br><br>";
+                    break;
+
+                default:
+
+                    returnVal = "";
+                    break;
+
+            }
+
+            return returnVal;
+        }
+
     }
 }

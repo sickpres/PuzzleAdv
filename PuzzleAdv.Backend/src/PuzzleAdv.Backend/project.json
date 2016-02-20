@@ -8,6 +8,7 @@
   "dependencies": {
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "ImageResizer": "4.0.4",
     "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
@@ -26,7 +27,8 @@
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
+    "pace.js": "0.7.1"
   },
 
   "commands": {
@@ -38,10 +40,12 @@
   "frameworks": {
     "dnx451": {
       "frameworkAssemblies": {
-        "System.Data.Entity": "4.0.0.0"
+        "System.Data.Entity": "4.0.0.0",
+        "System.Drawing": "4.0.0.0"
+      },
+      "dependencies": {
       }
-    },
-    "dnx500": { }
+    }
   },
 
   "exclude": [

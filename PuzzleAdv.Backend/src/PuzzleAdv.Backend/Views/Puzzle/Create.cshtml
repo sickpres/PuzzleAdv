@@ -1,5 +1,5 @@
 @{
-    Layout = "~/Views/Shared/_Layout_2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Nuovo Puzzle";
 }
 
@@ -16,12 +16,12 @@
                 <fieldset>
                     <h2>Da che giorno vorresti pubblicare il puzzle?</h2>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group" id="startDateDiv">
                                 <p></p>
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" class="form-control">
+                                    <input type="text" id="startDate" class="form-control" name="startDate">
                                 </div>
                             </div>
                         </div>
@@ -40,11 +40,10 @@
 
                     <h2>Entro che raggio, rispetto al tuo negozio, vorresti che venga visualizzato il puzzle?</h2>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <p></p>
-                                <div id="ionrange_1"></div>
-                                <input type="hidden" id="distance" />
+                                <input type="text" id="distance" name="distance" value="" />
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -77,6 +76,18 @@
                     <h2>Termini e condizioni</h2>
                     <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Accetto i termini e le condizioni.</label>
                 </fieldset>
+
+                <h1>Invio dati</h1>
+                <fieldset>
+                    <h2>Invio dati in corso, attendere ...</h2>
+                    <div class="sk-spinner sk-spinner-wave">
+                        <div class="sk-rect1"></div>
+                        <div class="sk-rect2"></div>
+                        <div class="sk-rect3"></div>
+                        <div class="sk-rect4"></div>
+                        <div class="sk-rect5"></div>
+                    </div>
+                </fieldset>
             </form>
 
         </div>
@@ -97,7 +108,7 @@
         <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
-        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
         <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
     </environment>
 }
@@ -117,7 +128,7 @@
         <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
         <script src="~/lib_bower/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js"></script>
         <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
-        <script src="~/lib_bower/cropper/dist/cropper.min.js"></script>
+        <script src="~/lib_bower/cropper/dist/cropper.js"></script>
         <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
         <script src="~/lib/steps/jquery.steps.js"></script>
     </environment>
@@ -132,15 +143,17 @@
 
             $("#form").steps({
                 bodyTag: "fieldset",
+                stepsOrientation: "vertical",
+                enableFinishButton: false,
                 labels: {
                     next: "Avanti",
                     previous: "Indietro",
-                    finish: "Invia",
                     loading: "Loading ..."
                 },
                 onStepChanging: function (event, currentIndex, newIndex) {
                     // Always allow going backward even if the current step contains invalid fields!
                     if (currentIndex > newIndex) {
+                        $('a[href="#next"]').text('Avanti');
                         return true;
                     }
 
@@ -149,45 +162,54 @@
                         return false;
                     }
 
-                    return true;
+                    if (newIndex === 3) {
+                        $('a[href="#next"]').text('Invia');
+                    }
 
-                    // Start validation; Prevent going forward if false
-                    //return form.valid();
-                },
-                onFinished: function (event, currentIndex) {
+                    if (newIndex === 4) {
 
-                    var form = $('#form');
-                    var formData = new FormData(form.get(0)); //get AntiForgeryToken
+                        $('a[href="#previous"]').css('display', 'none');
+                        $('a[href="#finish"]').css('display', 'none');
 
-                    $image1.cropper('getCroppedCanvas').toBlob(function (blob) {
+                        var form = $('#form');
+                        var formData = new FormData(form.get(0)); //get AntiForgeryToken
 
-                        formData.append('croppedImage1', blob);
+                        $image1.cropper('getCroppedCanvas').toBlob(function (blob) {
 
-                        $image2.cropper('getCroppedCanvas').toBlob(function (blob) {
+                            formData.append('croppedImage1', blob);
 
-                            formData.append('croppedImage2', blob);
+                            $image2.cropper('getCroppedCanvas').toBlob(function (blob) {
 
-                            //todo: verificare se fattibile aggiunta di attributo ValidateAntiForgeryToken alla Action
-                            $.ajax('/Puzzle/Create', {
-                                method: "POST",
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function () {
-                                    console.log('Upload success');
-                                    var url = '@Url.Action("Index", "Puzzle")';
-                                    window.location.href = url;
-                                },
-                                error: function () {
-                                    console.log('Upload error');
-                                }
+                                formData.append('croppedImage2', blob);
+
+                                $.ajax('/Puzzle/Create', {
+                                    method: "POST",
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function () {
+                                        console.log('Upload success');
+                                        var url = '@Url.Action("Index", "Puzzle")';
+                                        window.location.href = url;
+                                    },
+                                    error: function () {
+                                        console.log('Upload error');
+                                    }
+
+                                });
 
                             });
 
                         });
 
-                    });
-                }
+                    }
+
+                    return true;
+
+                    // Start validation; Prevent going forward if false
+                    //return form.valid();
+                },
+                onFinished: function (event, currentIndex) { }
             });
 
 
@@ -205,7 +227,7 @@
 
             // *** slider ***
 
-            $("#ionrange_1").ionRangeSlider({
+            $("#distance").ionRangeSlider({
                 postfix: "Km",
                 hasGrid: true,
                 min: 10,

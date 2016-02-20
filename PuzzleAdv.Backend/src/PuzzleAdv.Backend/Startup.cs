@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PuzzleAdv.Backend.Models;
 using PuzzleAdv.Backend.Services;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc.Filters;
+using PuzzleAdv.Backend.Helpers;
 
 namespace PuzzleAdv.Backend
 {
@@ -61,6 +64,25 @@ namespace PuzzleAdv.Backend
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            // only allow authenticated users
+            var defaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+            services.AddMvc(setup =>
+            {
+                setup.Filters.Add(new AuthorizeFilter(defaultPolicy));
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy =>
+                {
+                    policy.RequireRole("Admin");
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

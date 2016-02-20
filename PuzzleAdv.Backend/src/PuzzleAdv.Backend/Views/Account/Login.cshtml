@@ -5,55 +5,63 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    Layout = null;
 }
-<div class="wrapper wrapper-content animated fadeInRight">
-    <h2>@ViewData["Title"].</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <section>
-                <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                    <hr />
-                    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Email" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Password" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Password" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                <input asp-for="RememberMe" />
-                                <label asp-for="RememberMe"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="submit" class="btn btn-default">Log in</button>
-                        </div>
-                    </div>
-                    <p>
-                        <a asp-action="Register">Registra un nuovo account</a>
-                    </p>
-                    <p>
-                        <a asp-action="ForgotPassword">Recupera la password</a>
-                    </p>
-                </form>
-            </section>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] PuzzleAdv</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib_bower/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib_bower/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+
+
+
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">PZL</h1>
+
+            </div>
+            <h3>Advertising, the funny way.</h3>
+            <p>
+                Accedi alla tua area personale e inizia subito a caricare i tuoi puzzle!
+            </p>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="m-t" role="form">
+                <div class="form-group">
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Username" required="">
+                </div>
+                <div class="form-group">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                <a href="#"><small>Password dimenticata?</small></a>
+                <p class="text-muted text-center"><small>Non sei ancora registrato?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Account")">Crea un account</a>
+            </form>
+            <p class="m-t"> <small>PuzzleAdv &copy; 2016</small> </p>
         </div>
     </div>
-    </div>
 
-    @section Scripts {
-        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    }
+</body>
+</html>

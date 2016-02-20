@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using System.Data.Spatial;
 
 namespace PuzzleAdv.Backend.Models
 {
@@ -30,6 +30,8 @@ namespace PuzzleAdv.Backend.Models
         public string InsertUserId { get; set; }
         public string DeleteUserId { get; set; }
         public string LastUpdateUserId { get; set; }
+
+        //public DbGeography Location { get; set; }
 
         //Foreign Keys
         public string UserId { get; set; }

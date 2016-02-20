@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using PuzzleAdv.Backend.Models;
 using PuzzleAdv.Backend.Services;
 using PuzzleAdv.Backend.ViewModels.Account;
+using PuzzleAdv.Backend.Helpers;
 
 namespace PuzzleAdv.Backend.Controllers
 {
@@ -60,15 +61,17 @@ namespace PuzzleAdv.Backend.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = true });
                 }
                 if (result.IsLockedOut)
                 {
@@ -116,7 +119,7 @@ namespace PuzzleAdv.Backend.Controllers
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return RedirectToAction(nameof(PuzzleController.Index), "Puzzle");
                 }
                 AddErrors(result);
             }
@@ -133,7 +136,7 @@ namespace PuzzleAdv.Backend.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(PuzzleController.Index), "Puzzle");
         }
 
         //
@@ -433,6 +436,11 @@ namespace PuzzleAdv.Backend.Controllers
                 ModelState.AddModelError("", "Invalid code.");
                 return View(model);
             }
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         #region Helpers

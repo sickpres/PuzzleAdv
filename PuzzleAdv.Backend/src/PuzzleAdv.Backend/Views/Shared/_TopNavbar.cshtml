@@ -1,13 +1,27 @@
-﻿<div class="row border-bottom">
-    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+﻿<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="#" class="navbar-brand"><i class="fa fa-puzzle-piece"></i> PuzzleAdv</a>
         </div>
-        @Html.Partial("_LoginPartial")
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a aria-expanded="false" role="button" href="@Url.Action("Index", "Puzzle")"> <i class="fa fa-picture-o"></i> I tuoi puzzle</a>
+                </li>
+                <li>
+                    <a aria-expanded="false" role="button" href="@Url.Action("Index", "Prize")"> <i class="fa fa-shopping-bag"></i> Catalogo premi</a>
+                </li>
+                <li>
+                    <a aria-expanded="false" role="button" href="@Url.Action("Index", "Shop")"> <i class="fa fa-folder-o"></i>Scheda negozio</a>
+                </li>
+                <li>
+                    <a aria-expanded="false" role="button" href="@Url.Action("Index", "Statistics")"> <i class="fa fa-line-chart"></i> Statistiche</a>
+                </li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
     </nav>
 </div>

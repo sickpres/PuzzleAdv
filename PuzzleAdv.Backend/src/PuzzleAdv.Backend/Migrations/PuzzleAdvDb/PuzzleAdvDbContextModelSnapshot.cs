@@ -53,6 +53,8 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 
                     b.Property<string>("DeleteUserId");
 
+                    b.Property<int>("Distance");
+
                     b.Property<DateTime?>("EndDate");
 
                     b.Property<DateTime>("InsertDate");

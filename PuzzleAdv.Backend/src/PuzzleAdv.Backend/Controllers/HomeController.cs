@@ -3,27 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Authorization;
 
 namespace PuzzleAdv.Backend.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IAuthorizationService _authz;
+
+        public HomeController(IAuthorizationService authz)
         {
-
-            ViewData["SubTitle"] = "Welcome in ASP.NET MVC 6 INSPINIA SeedProject ";
-            ViewData["Message"] = "It is an application skeleton for a typical MVC 6 project. You can use it to quickly bootstrap your webapp projects.";
-
-            return View();
+            _authz = authz;
         }
 
-        public IActionResult Minor()
+        public async Task<IActionResult> Index()
         {
 
-            ViewData["SubTitle"] = "Simple example of second view";
-            ViewData["Message"] = "Data are passing to view by ViewData from controller";
+            bool isAdmin = await _authz.AuthorizeAsync(User, "AdminOnly");
 
-            return View();
+            if (isAdmin)
+            {
+                return RedirectToAction(nameof(AdminController.PuzzleList), "Admin");
+            }
+            else
+            {
+                return RedirectToAction(nameof(PuzzleController.Index), "Puzzle");
+            }
+
         }
 
     }

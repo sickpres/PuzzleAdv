@@ -1,0 +1,332 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Nuovo Premio";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>Nuovo Premio</h5>
+        </div>
+        <div class="ibox-content">
+
+            <form id="form" asp-action="Create" method="post" class="wizard-big">
+
+                <h1>Titolo e breve descrizione</h1>
+                <fieldset>
+                    <h2>Inserisci un titolo e una breve descrizione del premio</h2>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Titolo</label>
+                                <input id="shortDesc" name="shortDesc" type="text" class="form-control required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Descrizione</label>
+                                <textarea id="longDesc" name="longDesc" class="form-control required" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Taglie disponibili (se applicabile)</label>
+                                <div class="col-sm-12">
+                                    <label class="checkbox-inline"> <input type="checkbox" value="XS" id="ckBox_XS"> XS </label>
+                                    <label class="checkbox-inline"> <input type="checkbox" value="S" id="ckBox_S"> S </label>
+                                    <label class="checkbox-inline"> <input type="checkbox" value="M" id="ckBox_M"> M </label>
+                                    <label class="checkbox-inline"> <input type="checkbox" value="L" id="ckBox_L"> L </label>
+                                    <label class="checkbox-inline"> <input type="checkbox" value="XL" id="ckBox_L"> XL </label>
+                                    <label class="checkbox-inline"> <input type="checkbox" value="XXL" id="ckBox_L"> XXL </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h1>Prezzo</h1>
+                <fieldset>
+                    <h2>Inserisci il prezzo di listino e il prezzo scontato</h2>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Prezzo di listino</label>
+                                <div class="input-group m-b"><span class="input-group-addon">&euro;</span> <input id="originalPrice" name="originalPrice" type="text" class="form-control text-right required"> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Prezzo scontato</label>
+                                <div class="input-group m-b"><span class="input-group-addon">&euro;</span> <input id="discountPrice" name="discountPrice" type="text" class="form-control text-right required"> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Punti necessari</label>
+                                <input id="points" name="neededPoints" type="text" disabled="" class="form-control text-right">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Partite complete*</label>
+                                <input id="matches" name="matches" type="text" disabled="" class="form-control text-right">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div class="input-group m-b">
+                                    <button id="btnUpdate" class="btn btn-white">Aggiorna</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h1>Immagine</h1>
+                <fieldset>
+                    <h2>Carica l'immagine del premio</h2>
+                    <!-- Image Cropper -->
+                    @Html.Partial("_ImageCropperPartial1")
+                </fieldset>
+
+                <h1>Termini e condizioni</h1>
+                <fieldset>
+                    <h2>Termini e condizioni</h2>
+                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                    <label for="acceptTerms">
+                        Mi assumo la responsabilità dei dati e delle immagini caricate.
+                    </label>
+                </fieldset>
+
+                <h1>Invio dati</h1>
+                <fieldset>
+                    <h2>Invio dati in corso, attendere ...</h2>
+                    <div class="sk-spinner sk-spinner-wave">
+                        <div class="sk-rect1"></div>
+                        <div class="sk-rect2"></div>
+                        <div class="sk-rect3"></div>
+                        <div class="sk-rect4"></div>
+                        <div class="sk-rect5"></div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib_bower/cropper/dist/cropper.js"></script>
+        <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+        <script src="~/lib/steps/jquery.steps.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib_bower/cropper/dist/cropper.js"></script>
+        <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+        <script src="~/lib/steps/jquery.steps.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+
+            // *** steps ***
+
+            $("#form").steps({
+                bodyTag: "fieldset",
+                stepsOrientation: "vertical",
+                enableFinishButton: false,
+                labels: {
+                    next: "Avanti",
+                    previous: "Indietro",
+                    loading: "Loading ..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        $('a[href="#next"]').text('Avanti');
+                        return true;
+                    }
+
+                    if (newIndex === 2) {
+                        var title = $("#title").val();
+                        var fullPrice = $("#fullPrice").val() + ' EUR';
+                        var price = $("#price").val() + ' EUR ' + '+ 200 punti';
+
+                        var canvas1 = $("#textCanvas1").get(0);
+                        var ctx1 = canvas1.getContext("2d");
+                        ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+                        ctx1.font = "12px Arial";
+                        ctx1.fillText(title, 5, 16);
+
+                        var canvas2 = $("#textCanvas2").get(0);
+                        var ctx2 = canvas2.getContext("2d");
+                        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+                        ctx2.font = "10px Arial";
+                        ctx2.fillText(fullPrice, 5, 16);
+                        ctx2.fillText(price, 5, 28);
+                        var overline = ctx2.measureText(fullPrice);
+                        ctx2.fillRect(5, 11, overline.width, 1);
+                    }
+
+                    if (newIndex === 3) {
+                        $('a[href="#next"]').text('Invia');
+                    }
+
+                    if (newIndex === 4) {
+
+                        $('a[href="#previous"]').css('display', 'none');
+                        $('a[href="#finish"]').css('display', 'none');
+
+                        var form = $('#form');
+                        var formData = new FormData(form.get(0)); //get AntiForgeryToken
+
+                        $image1.cropper('getCroppedCanvas').toBlob(function (blob) {
+
+                            formData.append('croppedImage1', blob);
+
+                            $.ajax('/Prize/Create', {
+                                method: "POST",
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function () {
+                                    console.log('Upload success');
+                                    var url = '@Url.Action("Index", "Prize")';
+                                    window.location.href = url;
+                                },
+                                error: function () {
+                                    console.log('Upload error');
+                                }
+
+                            });
+
+                        });
+
+                    }
+
+                    return true;
+
+                    // Start validation; Prevent going forward if false
+                    //return form.valid();
+                },
+                onFinished: function (event, currentIndex) { }
+            });
+
+
+            // *** cropper *** --> see view _ImageCropperPartial
+
+            var $image1 = $("#img-crop-1 > img")
+            $($image1).cropper({
+                aspectRatio: 1,
+                preview: "#img-preview-3",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            var $inputImage1 = $("#inputImage1");
+            if (window.FileReader) {
+                $inputImage1.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage1.val("");
+                            $image1.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+
+            $("#zoomIn1").click(function () {
+                $image1.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut1").click(function () {
+                $image1.cropper("zoom", -0.1);
+            });
+
+            $("#moveLeft1").click(function () {
+                $image1.cropper("move", -1, 0);
+            });
+
+            $("#moveRight1").click(function () {
+                $image1.cropper("move", 1, 0);
+            });
+
+            $("#moveUp1").click(function () {
+                $image1.cropper("move", 0, -1);
+            });
+
+            $("#moveDown1").click(function () {
+                $image1.cropper("move", 0, 1);
+            });
+
+
+
+            $('#btnUpdate').click(function (e) {
+
+                // prevent the default event behaviour    
+                e.preventDefault();
+
+                var original = $('#originalPrice').val();
+                var discount = $('#discountPrice').val();
+
+                $.ajax({
+                    url: "/Prize/GetPoints",
+                    type: "GET",
+                    data: { originalPrice: original, discountPrice: discount },
+                    success: function (data) {
+                        $("#points").val(data);
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}
+
+
+
