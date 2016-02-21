@@ -1,0 +1,113 @@
+@model PuzzleAdv.Backend.Models.Puzzle
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Puzzle</h4>
+        <hr />
+        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="DeleteDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DeleteDate" class="form-control" />
+                <span asp-validation-for="DeleteDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DeleteUserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DeleteUserId" class="form-control" />
+                <span asp-validation-for="DeleteUserId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Distance" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Distance" class="form-control" />
+                <span asp-validation-for="Distance" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InsertDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InsertDate" class="form-control" />
+                <span asp-validation-for="InsertDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InsertUserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InsertUserId" class="form-control" />
+                <span asp-validation-for="InsertUserId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastUpdateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LastUpdateDate" class="form-control" />
+                <span asp-validation-for="LastUpdateDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastUpdateUserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LastUpdateUserId" class="form-control" />
+                <span asp-validation-for="LastUpdateUserId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PuzzleImage" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PuzzleImage" class="form-control" />
+                <span asp-validation-for="PuzzleImage" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShopId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ShopId" class ="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Status" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

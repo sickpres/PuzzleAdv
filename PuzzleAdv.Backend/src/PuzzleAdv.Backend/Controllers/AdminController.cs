@@ -27,7 +27,6 @@ namespace PuzzleAdv.Backend.Controllers
             _authz = authz;
         }
 
-        // GET: /<controller>/
         [Authorize("AdminOnly")]
         public async Task<IActionResult> PuzzleList()
         {
@@ -38,6 +37,29 @@ namespace PuzzleAdv.Backend.Controllers
                            ID = p.ID,
                            InsertDate = p.InsertDate,
                            ShopTitle = s.Name,
+                           ShopCity = s.City,
+                           StatusEnum = (EnumHelper.PuzzleStatus)p.Status
+                       };
+
+            var adminListVm = await list.ToListAsync();
+
+            return View(adminListVm);
+        }
+
+
+        [Authorize("AdminOnly")]
+        public async Task<IActionResult> ToApproveList()
+        {
+            var list = from p in _context.Puzzle
+                       join s in _context.Shop on p.ShopId equals s.ID
+                       where p.Status == (int)EnumHelper.PuzzleStatus.ToApprove
+                       select new AdminListViewModel()
+                       {
+                           ID = p.ID,
+                           InsertDate = p.InsertDate,
+                           StartDate = p.StartDate,
+                           PuzzleImage = p.PuzzleImage,
+                           ShopTitle = s.Name,
                            ShopCity = s.City
                        };
 
@@ -45,5 +67,51 @@ namespace PuzzleAdv.Backend.Controllers
 
             return View(adminListVm);
         }
+
+
+        [Authorize("AdminOnly")]
+        public IActionResult ApprovePuzzle(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Puzzle puzzle = _context.Puzzle.Single(m => m.ID == id);
+            if (puzzle == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(puzzle);
+        }
+
+
+        [Authorize("AdminOnly")]
+        [HttpPost, ActionName("ApprovePuzzle")]
+        [ValidateAntiForgeryToken]
+        public IActionResult ApprovePuzzle(int id, string approve)
+        {
+
+            Puzzle puzzle = _context.Puzzle.Single(m => m.ID == id);
+
+            int status;
+            if (approve != null)
+            {
+                puzzle.StartDate = DateTime.Now;
+                status = (int)EnumHelper.PuzzleStatus.InProduction;
+            }
+            else
+            {
+                status = (int)EnumHelper.PuzzleStatus.ToReview;
+            }
+
+            puzzle.Status = status;
+            _context.Update(puzzle);
+            _context.SaveChanges();
+            return RedirectToAction("ToApproveList");
+
+        }
+
     }
 }

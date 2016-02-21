@@ -25,21 +25,6 @@ namespace PuzzleAdv.Backend.Helpers
                     returnVal = "Le definizione dell'immagine è inferiore a 96 dpi";
                     break;
 
-                case EnumHelper.PuzzleStatus.ReadyToProduction:
-
-                    returnVal = "<br><br><br>";
-
-                    if (puzzle.StartDate != null)
-                    {
-                        int days = ((DateTime)puzzle.StartDate - DateTime.Today).Days;
-
-                        returnVal = days == 0 ? "Pubblicazione prevista per oggi <br><br>" :
-                                    days == 1 ? "Pubblicazione prevista per domani <br><br>" :
-                                                String.Format("In pubblicazione tra {0} giorni <br><br>", days.ToString());
-                    }
-
-                    break;
-
                 case EnumHelper.PuzzleStatus.InProduction:
 
                     returnVal = "Pubblicato da 10 giorni <br><br>";
@@ -71,12 +56,6 @@ namespace PuzzleAdv.Backend.Helpers
 
             switch ((EnumHelper.PrizeStatus)prize.Status)
             {
-
-                case EnumHelper.PrizeStatus.ReadyToProduction:
-
-                    returnVal = "Il premio sarà pubblicato insieme al primo puzzle";
-
-                    break;
 
                 case EnumHelper.PrizeStatus.InProduction:
 

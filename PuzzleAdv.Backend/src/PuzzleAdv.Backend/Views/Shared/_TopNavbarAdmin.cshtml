@@ -9,10 +9,19 @@
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li>
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestione flusso <span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="@Url.Action("ToApproveList", "Admin")"><i class="fa fa-gavel"></i> Da approvare</a></li>
+                        <li><a href="@Url.Action("ToReviewList", "Admin")"><i class="fa fa-exclamation-triangle"></i> Modifiche necessarie</a></li>
+                        <li><a href="@Url.Action("InProductionList", "Admin")"><i class="fa fa-globe"></i> Pubblicati</a></li>
+                        <li><a href="@Url.Action("DeletedList", "Admin")"><i class="fa fa-trash-o"></i> Cancellati</a></li>
+                    </ul>
+                </li>
+                <li>
                     <a aria-expanded="false" role="button" href="@Url.Action("PuzzleList", "Admin")"> <i class="fa fa-picture-o"></i> Elenco puzzle</a>
                 </li>
                 <li>
-                    <a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Prize")"> <i class="fa fa-shopping-bag"></i> Elenco premi</a>
+                    <a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Admin")"> <i class="fa fa-shopping-bag"></i> Elenco premi</a>
                 </li>
             </ul>
             @Html.Partial("_LoginPartial")

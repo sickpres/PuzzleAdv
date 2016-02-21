@@ -12,32 +12,8 @@
         <div class="ibox-content">
 
             <form id="form" asp-action="Create" method="post" class="wizard-big">
-                <h1>Data di inizio e raggio d'azione</h1>
+                <h1>Raggio d'azione</h1>
                 <fieldset>
-                    <h2>Da che giorno vorresti pubblicare il puzzle?</h2>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group" id="startDateDiv">
-                                <p></p>
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" id="startDate" class="form-control" name="startDate">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="text-center">
-                                <div style="margin-top: 20px">
-                                    <i class="fa fa-calendar" style="font-size: 150px;color: #e5e5e5 "></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <br /><br />
-                    </div>
-
                     <h2>Entro che raggio, rispetto al tuo negozio, vorresti che venga visualizzato il puzzle?</h2>
                     <div class="row">
                         <div class="col-lg-6">
@@ -98,14 +74,12 @@
 
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
         <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
@@ -116,8 +90,6 @@
 @section Scripts {
     <environment names="Development">
         <script src="~/lib_bower/moment/moment.js"></script>
-        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-        <script src="~/lib_bower/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js"></script>
         <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
         <script src="~/lib_bower/cropper/dist/cropper.js"></script>
         <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
@@ -125,8 +97,6 @@
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib_bower/moment/moment.js"></script>
-        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        <script src="~/lib_bower/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js"></script>
         <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
         <script src="~/lib_bower/cropper/dist/cropper.js"></script>
         <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
@@ -213,20 +183,7 @@
             });
 
 
-            // *** datePicker ***
-
-            $('#startDateDiv .input-group.date').datepicker({
-                startDate: '0d',
-                language: 'it',
-                todayHighlight: 1,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
             // *** slider ***
-
             $("#distance").ionRangeSlider({
                 postfix: "Km",
                 hasGrid: true,

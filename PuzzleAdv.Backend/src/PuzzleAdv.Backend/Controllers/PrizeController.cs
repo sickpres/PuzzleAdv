@@ -80,7 +80,7 @@ namespace PuzzleAdv.Backend.Controllers
                 newPrize.DiscountPrice = discountPrice;
 
                 newPrize.ShopId = 2;
-                newPrize.Status = (int)EnumHelper.PrizeStatus.ReadyToProduction;
+                newPrize.Status = (int)EnumHelper.PrizeStatus.InProduction;
 
                 if (ModelState.IsValid)
                 {

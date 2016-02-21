@@ -23,7 +23,7 @@ namespace PuzzleAdv.Backend.Controllers
 
             if (isAdmin)
             {
-                return RedirectToAction(nameof(AdminController.PuzzleList), "Admin");
+                return RedirectToAction(nameof(AdminController.ToApproveList), "Admin");
             }
             else
             {

@@ -15,10 +15,16 @@ namespace PuzzleAdv.Backend.ViewModels.Admin
         [Display(Name = "Codice #")]
         public string IDNumber { get { return ID.ToString("D5"); } }
 
+        public string PuzzleImage { get; set; }
+
         [Display(Name = "Data di inserimento")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime InsertDate { get; set; }
+
+        [Display(Name = "Data di inizio")]
+        [DataType(DataType.Date)]
+        public DateTime? StartDate { get; set; }
 
         public EnumHelper.PuzzleStatus StatusEnum { get; set; }
 

@@ -19,9 +19,6 @@ namespace PuzzleAdv.Backend.Helpers
             [Display(Name = "Modifiche necessarie", ShortName = "fa fa-exclamation-triangle")]
             ToReview,
 
-            [Display(Name = "Pronto", ShortName = "fa fa-check-circle-o")]
-            ReadyToProduction,
-
             [Display(Name = "Pubblicato", ShortName = "fa fa-globe")]
             InProduction,
 
@@ -34,9 +31,6 @@ namespace PuzzleAdv.Backend.Helpers
 
         public enum PrizeStatus
         {
-            [Display(Name = "Pronto", ShortName = "fa fa-check-circle-o")]
-            ReadyToProduction,
-
             [Display(Name = "Pubblicato", ShortName = "fa fa-globe")]
             InProduction,
 

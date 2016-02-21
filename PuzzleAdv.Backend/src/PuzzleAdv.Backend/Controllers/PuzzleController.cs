@@ -1,15 +1,17 @@
-using System;
-using System.Linq;
-using Microsoft.AspNet.Mvc;
-using PuzzleAdv.Backend.Models;
-using System.Security.Claims;
-using PuzzleAdv.Backend.Helpers;
 using Microsoft.AspNet.Hosting;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
-using System.IO;
-using PuzzleAdv.Backend.ViewModels.Puzzle;
+using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity;
 using Microsoft.Data.Entity;
+using PuzzleAdv.Backend.Helpers;
+using PuzzleAdv.Backend.Models;
+using PuzzleAdv.Backend.ViewModels.Puzzle;
+using System;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 
 namespace PuzzleAdv.Backend.Controllers
@@ -28,7 +30,12 @@ namespace PuzzleAdv.Backend.Controllers
         // GET: Puzzle List
         public async Task<IActionResult> Index()
         {
-            var puzzles = await _context.Puzzle.ToListAsync();
+            var userId = HttpContext.User.GetUserId();
+
+            var puzzles = await _context.Puzzle
+                .Where(x => x.InsertUserId == userId && x.Status != (int)EnumHelper.PuzzleStatus.Deleted)
+                .OrderByDescending(x => x.InsertDate)
+                .ToListAsync();
 
             var puzzleListVm = puzzles.Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
 
@@ -45,7 +52,7 @@ namespace PuzzleAdv.Backend.Controllers
         // POST: Campaigns/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IFormFile croppedImage1, IFormFile croppedImage2, DateTime? startDate, int distance)
+        public IActionResult Create(IFormFile croppedImage1, IFormFile croppedImage2, int distance)
         {
             //Save image
             var uploads = Path.Combine(_environment.WebRootPath, "Uploads");
@@ -66,13 +73,15 @@ namespace PuzzleAdv.Backend.Controllers
 
                 img2.Build();
 
+                var userId = HttpContext.User.GetUserId();
+                var shopId = _context.Shop.Where(x => x.UserId == userId).Select(x => x.ID).FirstOrDefault();
+
                 Puzzle newPuzzle = new Puzzle();
                 newPuzzle.PuzzleImage = puzzleImageId;
-                newPuzzle.StartDate = startDate;
                 newPuzzle.Distance = distance;
                 newPuzzle.InsertDate = DateTime.Now;
-                newPuzzle.InsertUserId = HttpContext.User.GetUserId();
-                newPuzzle.ShopId = 2;
+                newPuzzle.InsertUserId = userId;
+                newPuzzle.ShopId = shopId;
                 newPuzzle.Status = (int)EnumHelper.PuzzleStatus.ToApprove;
 
                 if (ModelState.IsValid)
