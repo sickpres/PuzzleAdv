@@ -1,10 +1,11 @@
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 using PuzzleAdv.Backend.Helpers;
+using PuzzleAdv.Backend.Interfaces;
 using PuzzleAdv.Backend.Models;
 using PuzzleAdv.Backend.ViewModels.Puzzle;
 using System;
@@ -18,38 +19,30 @@ namespace PuzzleAdv.Backend.Controllers
 {
     public class PuzzleController : Controller
     {
-        private PuzzleAdvDbContext _context;
+        private readonly IPuzzleRepository _puzzleRepository;
         private IHostingEnvironment _environment;
 
-        public PuzzleController(PuzzleAdvDbContext context, IHostingEnvironment environment)
+        public PuzzleController(IPuzzleRepository puzzleRepository, IHostingEnvironment environment)
         {
-            _context = context;
+            _puzzleRepository = puzzleRepository;
             _environment = environment;
         }
 
         // GET: Puzzle List
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var userId = HttpContext.User.GetUserId();
-
-            var puzzles = await _context.Puzzle
-                .Where(x => x.InsertUserId == userId && x.Status != (int)EnumHelper.PuzzleStatus.Deleted)
-                .OrderByDescending(x => x.InsertDate)
-                .ToListAsync();
-
-            var puzzleListVm = puzzles.Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
-
+            var puzzleListVm = _puzzleRepository.ListAllPuzzleByUser()
+                .Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
             return View(puzzleListVm);
         }
 
-
-        // GET: Campaigns/Create
+        // GET: Puzzle/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Campaigns/Create
+        // POST: Puzzle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(IFormFile croppedImage1, IFormFile croppedImage2, int distance)
@@ -73,21 +66,9 @@ namespace PuzzleAdv.Backend.Controllers
 
                 img2.Build();
 
-                var userId = HttpContext.User.GetUserId();
-                var shopId = _context.Shop.Where(x => x.UserId == userId).Select(x => x.ID).FirstOrDefault();
-
-                Puzzle newPuzzle = new Puzzle();
-                newPuzzle.PuzzleImage = puzzleImageId;
-                newPuzzle.Distance = distance;
-                newPuzzle.InsertDate = DateTime.Now;
-                newPuzzle.InsertUserId = userId;
-                newPuzzle.ShopId = shopId;
-                newPuzzle.Status = (int)EnumHelper.PuzzleStatus.ToApprove;
-
                 if (ModelState.IsValid)
                 {
-                    _context.Puzzle.Add(newPuzzle);
-                    _context.SaveChanges();
+                    _puzzleRepository.AddPuzzle(puzzleImageId, distance);
                 }
             }
 
@@ -95,35 +76,6 @@ namespace PuzzleAdv.Backend.Controllers
 
         }
 
-        // GET: Campaigns/Edit/5
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-
-            Puzzle puzzle = _context.Puzzle.Single(m => m.ID == id);
-            if (puzzle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(puzzle);
-        }
-
-        // POST: Campaigns/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Puzzle puzzle)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Update(puzzle);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(puzzle);
-        }
 
     }
 }

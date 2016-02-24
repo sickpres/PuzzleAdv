@@ -14,6 +14,8 @@ using PuzzleAdv.Backend.Services;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Filters;
 using PuzzleAdv.Backend.Helpers;
+using PuzzleAdv.Backend.Interfaces;
+using PuzzleAdv.Backend.Repositories;
 
 namespace PuzzleAdv.Backend
 {
@@ -82,6 +84,8 @@ namespace PuzzleAdv.Backend
                     policy.RequireRole("Admin");
                 });
             });
+
+            services.AddScoped<IPuzzleRepository, PuzzleRepository>();
 
         }
 
