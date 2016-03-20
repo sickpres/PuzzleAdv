@@ -8,11 +8,14 @@ using PuzzleAdv.Backend.Helpers;
 using PuzzleAdv.Backend.Interfaces;
 using PuzzleAdv.Backend.Models;
 using PuzzleAdv.Backend.ViewModels.Puzzle;
+using PuzzleAdv.Backend.ViewModels.Shop;
 using System;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GoogleMaps.LocationServices;
+using CodeFirstStoreFunctions;
 
 
 namespace PuzzleAdv.Backend.Controllers
@@ -31,8 +34,11 @@ namespace PuzzleAdv.Backend.Controllers
         // GET: Puzzle List
         public IActionResult Index()
         {
+
+            //var shopList = _puzzleRepository.GetPuzzleFromDbFunction();
+
             var puzzleListVm = _puzzleRepository.ListAllPuzzleByUser()
-                .Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
+                               .Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
             return View(puzzleListVm);
         }
 
@@ -61,10 +67,11 @@ namespace PuzzleAdv.Backend.Controllers
 
                 img1.Build();
 
-                ImageResizer.ImageJob img2 = new ImageResizer.ImageJob(Path.Combine(uploads, fileName), Path.Combine(uploads, "16-9", "1065", fileName), 
+                ImageResizer.ImageJob img2 = new ImageResizer.ImageJob(Path.Combine(uploads, fileName), Path.Combine(uploads, "16-9", "1065", fileName),
                                                 new ImageResizer.Instructions("maxheight=1065;&scale=both;format=jpg;mode=max"));
 
                 img2.Build();
+
 
                 if (ModelState.IsValid)
                 {

@@ -86,6 +86,7 @@ namespace PuzzleAdv.Backend
             });
 
             services.AddScoped<IPuzzleRepository, PuzzleRepository>();
+            services.AddScoped<IShopRepository, ShopRepository>();
 
         }
 

@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PuzzleAdv.Backend.Models;
+using PuzzleAdv.Backend.ViewModels.Shop;
 
 namespace PuzzleAdv.Backend.Interfaces
 {
     public interface IPuzzleRepository
     {
-        //Puzzle
         IEnumerable<Puzzle> ListAllPuzzleByUser();  
         void AddPuzzle(string puzzleImageId, int distance);
 
-
-        //Shop
         Shop GetShopByUser();
+        IList<ShopDistance> GetPuzzleFromDbFunction();
     }
 
 }

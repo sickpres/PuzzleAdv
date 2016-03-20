@@ -101,7 +101,11 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 
                     b.Property<string>("LastUpdateUserId");
 
+                    b.Property<double>("Latitude");
+
                     b.Property<string>("LongDesc");
+
+                    b.Property<double>("Longitude");
 
                     b.Property<string>("Name");
 

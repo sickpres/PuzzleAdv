@@ -6,8 +6,10 @@
   },
 
   "dependencies": {
+    "EntityFramework.CodeFirstStoreFunctions": "1.0.0",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "GoogleMaps.LocationServices": "0.9.8.5",
     "ImageResizer": "4.0.4",
     "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
@@ -28,7 +30,9 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "pace.js": "0.7.1"
+    "pace.js": "0.7.1",
+    "System.Linq": "4.0.1-beta-23516",
+    "System.Linq.Parallel": "4.0.1-beta-23516"
   },
 
   "commands": {

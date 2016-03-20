@@ -31,7 +31,9 @@ namespace PuzzleAdv.Backend.Models
         public string DeleteUserId { get; set; }
         public string LastUpdateUserId { get; set; }
 
-        //public DbGeography Location { get; set; }
+        //Geo info
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         //Foreign Keys
         public string UserId { get; set; }

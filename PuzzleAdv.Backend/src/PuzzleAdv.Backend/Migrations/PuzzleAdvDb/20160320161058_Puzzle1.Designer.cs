@@ -8,8 +8,8 @@ using PuzzleAdv.Backend.Models;
 namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 {
     [DbContext(typeof(PuzzleAdvDbContext))]
-    [Migration("20160103142018_Puzzle")]
-    partial class Puzzle
+    [Migration("20160320161058_Puzzle1")]
+    partial class Puzzle1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,8 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
                     b.Property<DateTime?>("DeleteDate");
 
                     b.Property<string>("DeleteUserId");
+
+                    b.Property<int>("Distance");
 
                     b.Property<DateTime?>("EndDate");
 
@@ -100,7 +102,11 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 
                     b.Property<string>("LastUpdateUserId");
 
+                    b.Property<double>("Latitude");
+
                     b.Property<string>("LongDesc");
+
+                    b.Property<double>("Longitude");
 
                     b.Property<string>("Name");
 

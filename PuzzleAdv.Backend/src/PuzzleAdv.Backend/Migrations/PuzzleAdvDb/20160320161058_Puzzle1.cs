@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 {
-    public partial class Puzzle : Migration
+    public partial class Puzzle1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,9 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
                     InsertUserId = table.Column<string>(nullable: true),
                     LastUpdateDate = table.Column<DateTime>(nullable: true),
                     LastUpdateUserId = table.Column<string>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
                     LongDesc = table.Column<string>(nullable: true),
+                    Longitude = table.Column<double>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     ShortDesc = table.Column<string>(nullable: true),
@@ -71,6 +73,7 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DeleteDate = table.Column<DateTime>(nullable: true),
                     DeleteUserId = table.Column<string>(nullable: true),
+                    Distance = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: true),
                     InsertDate = table.Column<DateTime>(nullable: false),
                     InsertUserId = table.Column<string>(nullable: true),

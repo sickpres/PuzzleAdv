@@ -10,11 +10,6 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
         {
             migrationBuilder.DropForeignKey(name: "FK_Prize_Shop_ShopId", table: "Prize");
             migrationBuilder.DropForeignKey(name: "FK_Puzzle_Shop_ShopId", table: "Puzzle");
-            migrationBuilder.AddColumn<int>(
-                name: "Distance",
-                table: "Puzzle",
-                nullable: false,
-                defaultValue: 0);
             migrationBuilder.AddForeignKey(
                 name: "FK_Prize_Shop_ShopId",
                 table: "Prize",
@@ -35,7 +30,6 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
         {
             migrationBuilder.DropForeignKey(name: "FK_Prize_Shop_ShopId", table: "Prize");
             migrationBuilder.DropForeignKey(name: "FK_Puzzle_Shop_ShopId", table: "Puzzle");
-            migrationBuilder.DropColumn(name: "Distance", table: "Puzzle");
             migrationBuilder.AddForeignKey(
                 name: "FK_Prize_Shop_ShopId",
                 table: "Prize",
