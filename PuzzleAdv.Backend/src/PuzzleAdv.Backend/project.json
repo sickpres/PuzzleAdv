@@ -31,8 +31,10 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "pace.js": "0.7.1",
+    "Sendgrid": "6.3.4",
     "System.Linq": "4.0.1-beta-23516",
-    "System.Linq.Parallel": "4.0.1-beta-23516"
+    "System.Linq.Parallel": "4.0.1-beta-23516",
+    "Twilio": "4.7.0"
   },
 
   "commands": {

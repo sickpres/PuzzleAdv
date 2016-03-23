@@ -14,6 +14,7 @@ using PuzzleAdv.Backend.ViewModels.Manage;
 namespace PuzzleAdv.Backend.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

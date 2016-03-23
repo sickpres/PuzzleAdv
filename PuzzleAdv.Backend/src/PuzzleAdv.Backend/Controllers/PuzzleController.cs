@@ -20,6 +20,7 @@ using CodeFirstStoreFunctions;
 
 namespace PuzzleAdv.Backend.Controllers
 {
+    [RequireHttps]
     public class PuzzleController : Controller
     {
         private readonly IPuzzleRepository _puzzleRepository;

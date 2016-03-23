@@ -66,6 +66,7 @@ namespace PuzzleAdv.Backend
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             // only allow authenticated users
             var defaultPolicy = new AuthorizationPolicyBuilder()

@@ -19,6 +19,7 @@ using CodeFirstStoreFunctions;
 
 namespace PuzzleAdv.Backend.Controllers
 {
+    [RequireHttps]
     public class ShopController : Controller
     {
         private readonly IShopRepository _shopRepository;
@@ -33,21 +34,15 @@ namespace PuzzleAdv.Backend.Controllers
         // GET: Puzzle List
         public IActionResult Index()
         {
-            var shopVm = _shopRepository.GetShopByUser();
-            return View(shopVm);
+            var shopViewModel = _shopRepository.GetShopByUser();
+            return View(shopViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(ShopViewModel shop)
+        public IActionResult Index(ShopViewModel shopViewModel)
         {
-
-            _shopRepository.AddShop(shop.Name, 
-                                    shop.ShortDesc, 
-                                    shop.City,
-                                    shop.Address, 
-                                    shop.Website);
-
+            _shopRepository.AddShop(shopViewModel);
             return View();
         }
     }

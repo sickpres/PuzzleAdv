@@ -14,6 +14,7 @@ using Microsoft.Data.Entity;
 
 namespace PuzzleAdv.Backend.Controllers
 {
+    [RequireHttps]
     public class PrizeController : Controller
     {
         private PuzzleAdvDbContext _context;

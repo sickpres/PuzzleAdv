@@ -14,6 +14,7 @@ using Microsoft.AspNet.Authorization;
 
 namespace PuzzleAdv.Backend.Controllers
 {
+    [RequireHttps]
     public class AdminController : Controller
     {
         private PuzzleAdvDbContext _context;
