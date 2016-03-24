@@ -23,10 +23,10 @@ namespace PuzzleAdv.Backend.Repositories
             _loggedUserId = httpContextAccessor.HttpContext.User.GetUserId();
         }
 
-        public bool UserHasShop()
+        public Task<bool> UserHasShopAsync(ClaimsPrincipal user)
         {
-            var count = _dbContext.Shop.Where(x => x.UserId == _loggedUserId).Count();
-            return count > 0;
+            var count = _dbContext.Shop.Where(x => x.UserId == user.GetUserId()).Count();
+            return Task.FromResult(count > 0);
         }
 
         public ShopViewModel GetShopByUser()

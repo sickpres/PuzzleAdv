@@ -24,7 +24,7 @@ namespace PuzzleAdv.Backend.Controllers
         {
 
             bool isAdmin = await _authz.AuthorizeAsync(User, "AdminOnly");
-            bool hasShop = _shopRepository.UserHasShop();
+            bool hasShop = await _shopRepository.UserHasShopAsync(User);
 
 
             if (isAdmin)
