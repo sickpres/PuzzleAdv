@@ -23,17 +23,17 @@ namespace PuzzleAdv.Backend.Controllers
         public async Task<IActionResult> Index()
         {
 
-            bool isAdmin = await _authz.AuthorizeAsync(User, "AdminOnly");
-            bool hasShop = await _shopRepository.UserHasShopAsync(User);
+            bool userIsAdmin = await _authz.AuthorizeAsync(User, "AdminOnly");
+            bool userHasShop = await _shopRepository.UserHasShopAsync(User);
 
 
-            if (isAdmin)
+            if (userIsAdmin)
             {
                 return RedirectToAction(nameof(AdminController.ToApproveList), "Admin");
             }
             else
             {
-                if (hasShop)
+                if (userHasShop)
                 {
                     return RedirectToAction(nameof(PuzzleController.Index), "Puzzle");
                 }

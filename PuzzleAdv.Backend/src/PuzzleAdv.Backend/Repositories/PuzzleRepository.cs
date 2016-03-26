@@ -4,58 +4,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using PuzzleAdv.Backend.Interfaces;
 using PuzzleAdv.Backend.Models;
-using PuzzleAdv.Backend.ViewModels.Shop;
+using PuzzleAdv.Backend.ViewModels.Puzzle;
 using Microsoft.AspNet.Http;
 using System.Security.Claims;
 using PuzzleAdv.Backend.Helpers;
+using PuzzleAdv.Backend.Repositories;
 
 namespace PuzzleAdv.Backend.Repositories
 {
     public class PuzzleRepository : IPuzzleRepository
     {
         private readonly PuzzleAdvDbContext _dbContext;
-        private readonly string _loggedUserId;
 
-        public PuzzleRepository(PuzzleAdvDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public PuzzleRepository(PuzzleAdvDbContext dbContext)
         {
             _dbContext = dbContext;
-            _loggedUserId = httpContextAccessor.HttpContext.User.GetUserId();
         }
 
-        public void AddPuzzle(string puzzleImageId, int distance)
+        public async Task AddPuzzleAsync(ClaimsPrincipal user, string puzzleImageId, int distance, int shopId)
         {
             Puzzle newPuzzle = new Puzzle();
             newPuzzle.PuzzleImage = puzzleImageId;
             newPuzzle.Distance = distance;
             newPuzzle.InsertDate = DateTime.Now;
-            newPuzzle.InsertUserId = _loggedUserId;
-            newPuzzle.ShopId = GetShopByUser().ID;
+            newPuzzle.InsertUserId = user.GetUserId();
+            newPuzzle.ShopId = shopId;
             newPuzzle.Status = (int)EnumHelper.PuzzleStatus.ToApprove;
 
             _dbContext.Puzzle.Add(newPuzzle);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Shop GetShopByUser()
+        public List<PuzzleListViewModel> GetPuzzles(ClaimsPrincipal user)
         {
-            return _dbContext.Shop.Single(x => x.UserId == _loggedUserId);
-        }
+            var query = _dbContext.Puzzle
+                .Where(x => x.InsertUserId == user.GetUserId() && x.Status != (int)EnumHelper.PuzzleStatus.Deleted)
+                .OrderByDescending(x => x.InsertDate)
+                .Select(x => new PuzzleListViewModel()
+                {
+                    ID = x.ID,
+                    InsertDate = x.InsertDate,
+                    PuzzleImage = x.PuzzleImage,
+                    StatusEnum = (EnumHelper.PuzzleStatus)x.Status,
+                    StatusInfo = StringHelper.GetStatusInfo(x)
+                });
 
-        public IEnumerable<Puzzle> ListAllPuzzleByUser()
-        {
-            return _dbContext.Puzzle
-                .Where(x => x.InsertUserId == _loggedUserId && x.Status != (int)EnumHelper.PuzzleStatus.Deleted)
-                .OrderByDescending(x => x.InsertDate).AsEnumerable();
-        }
+            return query.ToList();
 
-        
-        public IList<ShopDistance> GetPuzzleFromDbFunction()
-        {
-            string commandText = string.Format("SELECT * FROM [dbo].[GetPuzzle] ({0}, {1})", "45.808060", "9.085176");
-            IList<ShopDistance> list = _dbContext.GetPuzzleDbFunction(commandText);
-            return list;
         }
-        
 
     }
 }

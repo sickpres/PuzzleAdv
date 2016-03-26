@@ -11,7 +11,6 @@ using PuzzleAdv.Backend.ViewModels.Shop;
 using System;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using GoogleMaps.LocationServices;
 using CodeFirstStoreFunctions;
@@ -34,7 +33,7 @@ namespace PuzzleAdv.Backend.Controllers
         // GET: Puzzle List
         public IActionResult Index()
         {
-            var shopViewModel = _shopRepository.GetShopByUser();
+            var shopViewModel = _shopRepository.GetUserShop(User);
             return View(shopViewModel);
         }
 
@@ -42,7 +41,7 @@ namespace PuzzleAdv.Backend.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(ShopViewModel shopViewModel)
         {
-            _shopRepository.AddShop(shopViewModel);
+            _shopRepository.AddShop(User, shopViewModel);
             return View();
         }
     }

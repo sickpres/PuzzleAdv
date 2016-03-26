@@ -15,25 +15,23 @@ namespace PuzzleAdv.Backend.Repositories
     public class ShopRepository : IShopRepository
     {
         private readonly PuzzleAdvDbContext _dbContext;
-        private readonly string _loggedUserId;
 
-        public ShopRepository(PuzzleAdvDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public ShopRepository(PuzzleAdvDbContext dbContext)
         {
             _dbContext = dbContext;
-            _loggedUserId = httpContextAccessor.HttpContext.User.GetUserId();
         }
 
-        public Task<bool> UserHasShopAsync(ClaimsPrincipal user)
+        public async Task<bool> UserHasShopAsync(ClaimsPrincipal user)
         {
-            var count = _dbContext.Shop.Where(x => x.UserId == user.GetUserId()).Count();
-            return Task.FromResult(count > 0);
+            return await Task.FromResult(_dbContext.Shop.Any(x => x.UserId == user.GetUserId()));
         }
 
-        public ShopViewModel GetShopByUser()
+        public ShopViewModel GetUserShop(ClaimsPrincipal user)
         {
-            return _dbContext.Shop.Where(x => x.UserId == _loggedUserId)
+            return _dbContext.Shop.Where(x => x.UserId == user.GetUserId())
                 .Select(x => new ShopViewModel()
                 {
+                    ID = x.ID,
                     Address = x.Address,
                     City = x.City,
                     Name = x.Name,
@@ -42,7 +40,7 @@ namespace PuzzleAdv.Backend.Repositories
                 }).SingleOrDefault();
         }
 
-        public void AddShop(ShopViewModel shopViewModel)
+        public void AddShop(ClaimsPrincipal user, ShopViewModel shopViewModel)
         {
             var addressData = new AddressData
             {
@@ -66,12 +64,21 @@ namespace PuzzleAdv.Backend.Repositories
             newShop.Latitude = latitude;
             newShop.Longitude = longitude;
             newShop.InsertDate = DateTime.Now;
-            newShop.InsertUserId = _loggedUserId;
-            newShop.UserId = _loggedUserId;
+            newShop.InsertUserId = user.GetUserId();
+            newShop.UserId = user.GetUserId();
 
             _dbContext.Shop.Add(newShop);
             _dbContext.SaveChanges();
         }
+
+        /*
+        public IList<ShopDistance> GetPuzzleFromDbFunction()
+        {
+            string commandText = string.Format("SELECT * FROM [dbo].[GetPuzzle] ({0}, {1})", "45.808060", "9.085176");
+            IList<ShopDistance> list = _dbContext.GetPuzzleDbFunction(commandText);
+            return list;
+        }
+        */
 
     }
 }

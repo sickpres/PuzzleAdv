@@ -11,7 +11,9 @@ namespace PuzzleAdv.Backend.Interfaces
     public interface IShopRepository
     {
         Task<bool> UserHasShopAsync(ClaimsPrincipal user);
-        ShopViewModel GetShopByUser();
-        void AddShop(ShopViewModel shopViewModel);
+
+        ShopViewModel GetUserShop(ClaimsPrincipal user);
+
+        void AddShop(ClaimsPrincipal user, ShopViewModel shopViewModel);
     }
 }

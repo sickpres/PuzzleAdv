@@ -8,6 +8,8 @@ namespace PuzzleAdv.Backend.ViewModels.Shop
 {
     public class ShopViewModel
     {
+        public int ID { get; set; }
+
         [Required]
         [Display(Name = "Ragione sociale")]
         public string Name { get; set; }

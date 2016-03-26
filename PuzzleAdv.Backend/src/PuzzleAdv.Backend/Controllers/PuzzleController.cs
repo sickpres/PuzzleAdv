@@ -24,22 +24,20 @@ namespace PuzzleAdv.Backend.Controllers
     public class PuzzleController : Controller
     {
         private readonly IPuzzleRepository _puzzleRepository;
+        private readonly IShopRepository _shopRepository;
         private IHostingEnvironment _environment;
 
-        public PuzzleController(IPuzzleRepository puzzleRepository, IHostingEnvironment environment)
+        public PuzzleController(IPuzzleRepository puzzleRepository, IShopRepository shopRepository, IHostingEnvironment environment)
         {
             _puzzleRepository = puzzleRepository;
+            _shopRepository = shopRepository;
             _environment = environment;
         }
 
         // GET: Puzzle List
         public IActionResult Index()
         {
-
-            //var shopList = _puzzleRepository.GetPuzzleFromDbFunction();
-
-            var puzzleListVm = _puzzleRepository.ListAllPuzzleByUser()
-                               .Select<Puzzle, PuzzleListViewModel>(puzzle => puzzle);
+            var puzzleListVm = _puzzleRepository.GetPuzzles(User);
             return View(puzzleListVm);
         }
 
@@ -52,16 +50,17 @@ namespace PuzzleAdv.Backend.Controllers
         // POST: Puzzle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IFormFile croppedImage1, IFormFile croppedImage2, int distance)
+        public async Task<IActionResult> Create(IFormFile croppedImage1, IFormFile croppedImage2, int distance)
         {
-            //Save image
+
             var uploads = Path.Combine(_environment.WebRootPath, "Uploads");
+
             if (croppedImage1.Length > 0 && croppedImage2.Length > 0)
             {
                 var puzzleImageId = Guid.NewGuid().ToString();
                 var fileName = string.Format("{0}.jpg", puzzleImageId);
 
-                croppedImage1.SaveAs(Path.Combine(uploads, fileName));
+                await croppedImage1.SaveAsAsync(Path.Combine(uploads, fileName));
 
                 ImageResizer.ImageJob img1 = new ImageResizer.ImageJob(Path.Combine(uploads, fileName), Path.Combine(uploads, "16-9", "400", fileName),
                                 new ImageResizer.Instructions("maxheight=400;&scale=both;format=jpg;mode=max"));
@@ -76,7 +75,7 @@ namespace PuzzleAdv.Backend.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _puzzleRepository.AddPuzzle(puzzleImageId, distance);
+                    await _puzzleRepository.AddPuzzleAsync(User, puzzleImageId, distance, _shopRepository.GetUserShop(User).ID);
                 }
             }
 
