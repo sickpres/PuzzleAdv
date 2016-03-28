@@ -6,52 +6,52 @@
 }
 
 <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h4>Elenco Puzzle</h4>
+            </div>
+            <div class="ibox-content">
 
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>Elenco Puzzle</h5>
-        </div>
-        <div class="ibox-content">
+                <table class="table table-striped table-bordered table-hover puzzle-list-table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.IDNumber)</th>
+                            <th>@Html.DisplayNameFor(model => model.InsertDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.ShopTitle)</th>
+                            <th>@Html.DisplayNameFor(model => model.ShopCity)</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <table class="table table-striped table-bordered table-hover puzzle-list-table">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.IDNumber)</th>
-                        <th>@Html.DisplayNameFor(model => model.InsertDate)</th>
-                        <th>@Html.DisplayNameFor(model => model.StartDate)</th>
-                        <th>@Html.DisplayNameFor(model => model.ShopTitle)</th>
-                        <th>@Html.DisplayNameFor(model => model.ShopCity)</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model)
+                        @foreach (var item in Model)
                     {
 
-                        <tr class="gradeX">
-                            <td>@Html.DisplayFor(modelItem => item.IDNumber)</td>
-                            <td>@Html.DisplayFor(modelItem => item.InsertDate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ShopTitle)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ShopCity)</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs" asp-action="Edit" asp-route-id="@item.ID">Gestisci</button>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr class="gradeX">
+                                <td>@Html.DisplayFor(modelItem => item.IDNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.InsertDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ShopTitle)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ShopCity)</td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <button class="btn-white btn btn-xs" asp-action="Edit" asp-route-id="@item.ID">Gestisci</button>
+                                    </div>
+                                </td>
+                            </tr>
 
                     }
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
+
     </div>
-
 </div>
-
 
 @section Styles {
     <environment names="Development,Staging,Production">

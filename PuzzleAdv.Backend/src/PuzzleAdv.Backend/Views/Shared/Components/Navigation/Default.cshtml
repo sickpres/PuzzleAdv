@@ -1,52 +1,66 @@
 ﻿@model PuzzleAdv.Backend.ViewModels.Navigation.NavigationViewModel
 
-<div class="row border-bottom white-bg">
-    <nav class="navbar navbar-static-top" role="navigation">
-        <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <i class="fa fa-reorder"></i>
-            </button>
-            <a href="#" class="navbar-brand"><i class="fa fa-puzzle-piece"></i> PuzzleAdv</a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar">
-            @if (Model.UserIsAdmin)
+<div class="row lazur-bg">
+    <div class="container">
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <div class="navbar-brand"><img src="images/logo.png" alt="Logo" /></div>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                @if (Model.UserIsAdmin)
             {
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestione flusso <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="@Url.Action("ToApproveList", "Admin")"><i class="fa fa-gavel"></i> Da approvare</a></li>
-                            <li><a href="@Url.Action("ToReviewList", "Admin")"><i class="fa fa-exclamation-triangle"></i> Modifiche necessarie</a></li>
-                            <li><a href="@Url.Action("InProductionList", "Admin")"><i class="fa fa-globe"></i> Pubblicati</a></li>
-                            <li><a href="@Url.Action("DeletedList", "Admin")"><i class="fa fa-trash-o"></i> Cancellati</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a aria-expanded="false" role="button" href="@Url.Action("PuzzleList", "Admin")"> <i class="fa fa-picture-o"></i> Elenco puzzle</a>
-                    </li>
-                    <li>
-                        <a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Admin")"> <i class="fa fa-shopping-bag"></i> Elenco premi</a>
-                    </li>
-                </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestione flusso <span class="caret"></span></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="@Url.Action("ToApproveList", "Admin")"><i class="fa fa-gavel"></i> Da approvare</a></li>
+                                <li><a href="@Url.Action("ToReviewList", "Admin")"><i class="fa fa-exclamation-triangle"></i> Modifiche necessarie</a></li>
+                                <li><a href="@Url.Action("InProductionList", "Admin")"><i class="fa fa-globe"></i> Pubblicati</a></li>
+                                <li><a href="@Url.Action("DeletedList", "Admin")"><i class="fa fa-trash-o"></i> Cancellati</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a aria-expanded="false" role="button" href="@Url.Action("PuzzleList", "Admin")"> <i class="fa fa-picture-o"></i> Elenco puzzle</a>
+                        </li>
+                        <li>
+                            <a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Admin")"> <i class="fa fa-shopping-bag"></i> Elenco premi</a>
+                        </li>
+                    </ul>
             }
             else if (Model.UserHasShop)
             {
                     <ul class="nav navbar-nav">
                         <li>
-                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Puzzle")"> <i class="fa fa-picture-o"></i> I tuoi puzzle</a>
+                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Puzzle")">
+
+                                PUZZLE
+                            </a>
                         </li>
                         <li>
-                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Prize")"> <i class="fa fa-shopping-bag"></i> Catalogo premi</a>
+                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Prize")">
+
+                                PREMI
+                            </a>
                         </li>
                         <li>
-                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Shop")"> <i class="fa fa-folder-o"></i>Scheda negozio</a>
+                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Shop")">
+
+                                NEGOZIO
+                            </a>
                         </li>
                         <li>
-                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Statistics")"> <i class="fa fa-line-chart"></i> Statistiche</a>
+                            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Statistics")">
+
+                                STATISTICHE
+                            </a>
                         </li>
                     </ul>
-                }
-            @Html.Partial("_LoginPartial")
-        </div>
-    </nav>
+            }
+                @Html.Partial("_LoginPartial")
+            </div>
+        </nav>
+    </div>
 </div>

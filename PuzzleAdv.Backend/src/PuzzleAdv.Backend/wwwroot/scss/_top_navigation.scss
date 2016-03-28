@@ -54,9 +54,20 @@
 }
 
 .top-navigation .navbar-brand {
-  background: $navy;
   color: #fff;
-  padding: 15px 25px;
+  height:auto;
+  padding:10px 0;
+  float: left;
+  font-size: 18px;
+  height: 50px;
+  line-height: 20px;
+}
+
+.navbar-brand img {
+    height: 44px;
+}
+.navbar-brand > img {
+    display: block;
 }
 
 .top-navigation .navbar-top-links li:last-child {

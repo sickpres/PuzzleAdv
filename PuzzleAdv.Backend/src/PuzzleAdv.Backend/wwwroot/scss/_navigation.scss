@@ -31,6 +31,7 @@
 
 .navbar {
   border: 0;
+  height: 64px;
 }
 
 .navbar-default {
@@ -331,10 +332,6 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   transition-duration: 0.4s;
   border-bottom: 1px solid #e7eaec !important;
   z-index: 2030;
-}
-
-.navbar-fixed-top, .navbar-static-top {
-  background: $gray;
 }
 
 .fixed-nav #wrapper {

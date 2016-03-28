@@ -450,7 +450,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 
 .elements-list .list-group-item.active,
 .elements-list .list-group-item:hover {
-  background: #f3f3f4;
+  background: #f5f5f5;
   color: inherit;
   border-color: #e7eaec;
   /*border-bottom: 1px solid #e7eaec;*/
@@ -969,7 +969,7 @@ div.dt-button-info {
   display: block;
   overflow: hidden;
   cursor: pointer;
-  border: 2px solid #1AB394;
+  border: 2px solid #169ece;
   border-radius: 3px;
 }
 
@@ -1002,7 +1002,7 @@ div.dt-button-info {
 .onoffswitch-inner:before {
   content: "ON";
   padding-left: 7px;
-  background-color: #1AB394;
+  background-color: #169ece;
   color: #FFFFFF;
 }
 
@@ -1019,7 +1019,7 @@ div.dt-button-info {
   width: 18px;
   margin: 0;
   background: #FFFFFF;
-  border: 2px solid #1AB394;
+  border: 2px solid #169ece;
   border-radius: 3px;
   position: absolute;
   top: 0;
@@ -1425,7 +1425,7 @@ div.dt-button-info {
 #nestable2 .dd-handle {
   color: inherit;
   border: 1px dashed #e7eaec;
-  background: #f3f3f4;
+  background: #f5f5f5;
   padding: 10px;
 }
 

@@ -4,72 +4,72 @@
 }
 
 <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h4>Nuovo Puzzle</h4>
+            </div>
+            <div class="ibox-content">
 
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>Nuovo Puzzle</h5>
-        </div>
-        <div class="ibox-content">
-
-            <form id="form" asp-action="Create" method="post" class="wizard-big">
-                <h1>Raggio d'azione</h1>
-                <fieldset>
-                    <h2>Entro che raggio, rispetto al tuo negozio, vorresti che venga visualizzato il puzzle?</h2>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <p></p>
-                                <input type="text" id="distance" name="distance" value="" />
+                <form id="form" asp-action="Create" method="post" class="wizard-big">
+                    <h1>Raggio d'azione</h1>
+                    <fieldset>
+                        <h2>Entro che raggio, rispetto al tuo negozio, vorresti che venga visualizzato il puzzle?</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <p></p>
+                                    <input type="text" id="distance" name="distance" value="" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="text-center">
-                                <div style="margin-top: 20px">
-                                    <i class="fa fa-map-marker" style="font-size: 150px;color: #e5e5e5 "></i>
+                            <div class="col-lg-4">
+                                <div class="text-center">
+                                    <div style="margin-top: 20px">
+                                        <i class="fa fa-map-marker" style="font-size: 150px;color: #e5e5e5 "></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </fieldset>
-                <h1>Immagine 16:9</h1>
-                <fieldset>
-                    <h2>Configura l'immagine per schermi a 16:9</h2>
-                    <!-- Image Cropper -->
-                    @Html.Partial("_ImageCropperPartial1")
-                </fieldset>
+                    </fieldset>
+                    <h1>Immagine 16:9</h1>
+                    <fieldset>
+                        <h2>Configura l'immagine per schermi a 16:9</h2>
+                        <!-- Image Cropper -->
+                        @Html.Partial("_ImageCropperPartial1")
+                    </fieldset>
 
-                <h1>Immagine 4:3</h1>
-                <fieldset>
+                    <h1>Immagine 4:3</h1>
+                    <fieldset>
 
-                    <h2>Configura l'immagine per schermi a 4:3</h2>
-                    <!-- Image Cropper -->
-                    @Html.Partial("_ImageCropperPartial2")
-                </fieldset>
+                        <h2>Configura l'immagine per schermi a 4:3</h2>
+                        <!-- Image Cropper -->
+                        @Html.Partial("_ImageCropperPartial2")
+                    </fieldset>
 
-                <h1>Termini e condizioni</h1>
-                <fieldset>
-                    <h2>Termini e condizioni</h2>
-                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Accetto i termini e le condizioni.</label>
-                </fieldset>
+                    <h1>Termini e condizioni</h1>
+                    <fieldset>
+                        <h2>Termini e condizioni</h2>
+                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Accetto i termini e le condizioni.</label>
+                    </fieldset>
 
-                <h1>Invio dati</h1>
-                <fieldset>
-                    <h2>Invio dati in corso, attendere ...</h2>
-                    <div class="sk-spinner sk-spinner-wave">
-                        <div class="sk-rect1"></div>
-                        <div class="sk-rect2"></div>
-                        <div class="sk-rect3"></div>
-                        <div class="sk-rect4"></div>
-                        <div class="sk-rect5"></div>
-                    </div>
-                </fieldset>
-            </form>
+                    <h1>Invio dati</h1>
+                    <fieldset>
+                        <h2>Invio dati in corso, attendere ...</h2>
+                        <div class="sk-spinner sk-spinner-wave">
+                            <div class="sk-rect1"></div>
+                            <div class="sk-rect2"></div>
+                            <div class="sk-rect3"></div>
+                            <div class="sk-rect4"></div>
+                            <div class="sk-rect5"></div>
+                        </div>
+                    </fieldset>
+                </form>
 
+            </div>
         </div>
     </div>
 </div>
-
 
 
 @section Styles {
