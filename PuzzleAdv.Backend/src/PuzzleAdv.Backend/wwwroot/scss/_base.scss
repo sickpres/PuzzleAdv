@@ -225,13 +225,18 @@ ul.unstyled, ol.unstyled {
 /* FOOTER */
 
 .footer {
-    background: none repeat scroll 0 0 white;
-    border-top: 1px solid $border-color;
+    background: none repeat scroll 0 0 #303030;
     bottom: 0;
     left: 0;
     padding: 10px 20px;
     position: absolute;
     right: 0;
+    text-align: center;
+    color: #9a9a9a;
+}
+
+.footer  a, .footer  a:visited {
+    color: #fff;
 }
 
 .footer.fixed_full {
@@ -668,7 +673,8 @@ table.table-mail tr td {
 
 .lazur-bg {
     background-color: $lazur;
-    color: #ffffff;
+    color: #ffffff !important;
+    text-transform: lowercase !important;
 }
 
 .yellow-bg {

@@ -1,7 +1,18 @@
 .nav > li > a {
   color: $nav-text-color;
-  font-weight: 600;
-  padding: 14px 20px 14px 25px;
+  display:block;
+  font-family:Oswald, Arial, serif;
+  font-weight:400;
+  text-transform:uppercase;
+  background:none !important;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-size:.75em;
+  line-height:18px;
+  padding:5px 10px 3px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
 }
 
 .nav.navbar-right > li > a {
@@ -11,6 +22,11 @@
 .nav > li.active > a {
   color: #ffffff;
 }
+
+.nav > li > a:hover {
+  color:#FFF;
+}
+
 
 .navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
   background-color: darken($nav-bg, 3%);
@@ -32,6 +48,11 @@
 .navbar {
   border: 0;
   height: 64px;
+}
+
+.navbar .nav {
+	overflow:hidden;
+	float:right;
 }
 
 .navbar-default {
@@ -150,11 +171,6 @@
 
 .pace-done .nav-header {
   transition: all 0.4s;
-}
-
-.nav > li.active {
-  border-left: 4px solid darken($navy, 2%);
-  background: darken($nav-bg, 3%);
 }
 
 .nav.nav-second-level > li.active {
