@@ -36,12 +36,15 @@ namespace PuzzleAdv.Backend.Repositories
                     City = x.City,
                     Name = x.Name,
                     ShortDesc = x.ShortDesc,
-                    Website = x.Website
+                    Website = x.Website,
+                    Phone = x.Phone
                 }).SingleOrDefault();
         }
 
-        public void AddShop(ClaimsPrincipal user, ShopViewModel shopViewModel)
+        public async Task AddShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel)
         {
+            Shop shop = new Shop();
+
             var addressData = new AddressData
             {
                 Address = shopViewModel.Address,
@@ -54,21 +57,56 @@ namespace PuzzleAdv.Backend.Repositories
             var latitude = latlong.Latitude;
             var longitude = latlong.Longitude;
 
-            Shop newShop = new Shop();
+            shop.Name = shopViewModel.Name;
+            shop.ShortDesc = shopViewModel.ShortDesc;
+            shop.City = shopViewModel.City;
+            shop.Address = shopViewModel.Address;
+            shop.Website = shopViewModel.Website;
+            shop.Phone = shopViewModel.Phone;
+            shop.Latitude = latitude;
+            shop.Longitude = longitude;
+            shop.InsertDate = DateTime.Now;
+            shop.InsertUserId = user.GetUserId();
+            shop.UserId = user.GetUserId();
 
-            newShop.Name = shopViewModel.Name;
-            newShop.ShortDesc = shopViewModel.ShortDesc;
-            newShop.City = shopViewModel.City;
-            newShop.Address = shopViewModel.Address;
-            newShop.Website = shopViewModel.Website;
-            newShop.Latitude = latitude;
-            newShop.Longitude = longitude;
-            newShop.InsertDate = DateTime.Now;
-            newShop.InsertUserId = user.GetUserId();
-            newShop.UserId = user.GetUserId();
+            _dbContext.Shop.Add(shop);
 
-            _dbContext.Shop.Add(newShop);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel)
+        {
+            Shop shop = _dbContext.Shop.FirstOrDefault(x => x.UserId == user.GetUserId());
+
+            var addressData = new AddressData
+            {
+                Address = shopViewModel.Address,
+                City = shopViewModel.City.ToUpper(),
+                Country = "Italy"
+            };
+
+            var gls = new GoogleLocationService();
+            var latlong = gls.GetLatLongFromAddress(addressData);
+            var latitude = latlong.Latitude;
+            var longitude = latlong.Longitude;
+
+            shop.Name = shopViewModel.Name;
+            shop.ShortDesc = shopViewModel.ShortDesc;
+            shop.City = shopViewModel.City;
+            shop.Address = shopViewModel.Address;
+            shop.Website = shopViewModel.Website;
+            shop.Phone = shopViewModel.Phone;
+            shop.Latitude = latitude;
+            shop.Longitude = longitude;
+            shop.InsertDate = DateTime.Now;
+            shop.InsertUserId = user.GetUserId();
+            shop.UserId = user.GetUserId();
+
+            _dbContext.Shop.Update(shop);
+
+            await _dbContext.SaveChangesAsync();
+
         }
 
         /*

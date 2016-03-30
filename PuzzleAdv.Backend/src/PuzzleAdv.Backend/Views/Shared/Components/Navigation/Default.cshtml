@@ -14,24 +14,24 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Model.UserIsAdmin)
                     {
-                    <li class="@Html.IsSelected(controller: "Admin")">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestione flusso <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="@Url.Action("ToApproveList", "Admin")"><i class="fa fa-gavel"></i> Da approvare</a></li>
-                            <li><a href="@Url.Action("ToReviewList", "Admin")"><i class="fa fa-exclamation-triangle"></i> Modifiche necessarie</a></li>
-                            <li><a href="@Url.Action("InProductionList", "Admin")"><i class="fa fa-globe"></i> Pubblicati</a></li>
-                            <li><a href="@Url.Action("DeletedList", "Admin")"><i class="fa fa-trash-o"></i> Cancellati</a></li>
-                        </ul>
-                    </li>
-                    <li class="@Html.IsSelected(action: "PuzzleList")"><a aria-expanded="false" role="button" href="@Url.Action("PuzzleList", "Admin")"> Elenco puzzle</a></li>
-                    <li class="@Html.IsSelected(action: "PrizeList")"><a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Admin")"> Elenco premi</a></li>
+                        <li class="@Html.IsSelected(controller: "Admin")">
+                            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Gestione flusso <span class="caret"></span></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="@Url.Action("ToApproveList", "Admin")"><i class="fa fa-gavel"></i> Da approvare</a></li>
+                                <li><a href="@Url.Action("ToReviewList", "Admin")"><i class="fa fa-exclamation-triangle"></i> Modifiche necessarie</a></li>
+                                <li><a href="@Url.Action("InProductionList", "Admin")"><i class="fa fa-globe"></i> Pubblicati</a></li>
+                                <li><a href="@Url.Action("DeletedList", "Admin")"><i class="fa fa-trash-o"></i> Cancellati</a></li>
+                            </ul>
+                        </li>
+                        <li class="@Html.IsSelected(action: "PuzzleList")"><a aria-expanded="false" role="button" href="@Url.Action("PuzzleList", "Admin")"> Elenco puzzle</a></li>
+                        <li class="@Html.IsSelected(action: "PrizeList")"><a aria-expanded="false" role="button" href="@Url.Action("PrizeList", "Admin")"> Elenco premi</a></li>
                     }
                     else if (Model.UserHasShop)
                     {
-                    <li class="@Html.IsSelected(controller: "Puzzle")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Puzzle")"> Puzzle</a></li>
-                    <li class="@Html.IsSelected(controller: "Prize")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Prize")"> Premi</a></li>
-                    <li class="@Html.IsSelected(controller: "Shop")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Shop")"> Negozio</a></li>
-                    <li class="@Html.IsSelected(controller: "Statistics")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Statistics")"> Statistiche</a></li>
+                        <li class="@Html.IsSelected(controller: "Shop")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Shop")"> Scheda negozio</a></li>
+                        <li class="@Html.IsSelected(controller: "Puzzle")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Puzzle")"> Puzzle</a></li>
+                        <li class="@Html.IsSelected(controller: "Prize")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Prize")"> Premi</a></li>
+                        <li class="@Html.IsSelected(controller: "Statistics")"><a aria-expanded="false" role="button" href="@Url.Action("Index", "Statistics")"> Statistiche</a></li>
                     }
                 </ul>
             </div>

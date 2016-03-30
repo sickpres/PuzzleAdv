@@ -14,6 +14,8 @@ namespace PuzzleAdv.Backend.Interfaces
 
         ShopViewModel GetUserShop(ClaimsPrincipal user);
 
-        void AddShop(ClaimsPrincipal user, ShopViewModel shopViewModel);
+        Task AddShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel);
+
+        Task UpdateShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel);
     }
 }

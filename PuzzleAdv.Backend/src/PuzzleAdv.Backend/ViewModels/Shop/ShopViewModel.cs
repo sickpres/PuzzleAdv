@@ -27,6 +27,10 @@ namespace PuzzleAdv.Backend.ViewModels.Shop
         public string Address { get; set; }
 
         [Required]
+        [Display(Name = "Telefono")]
+        public string Phone { get; set; }
+
+        [Required]
         [Display(Name = "Sito web")]
         public string Website { get; set; }
 

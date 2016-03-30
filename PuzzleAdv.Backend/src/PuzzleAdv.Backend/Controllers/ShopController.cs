@@ -39,9 +39,16 @@ namespace PuzzleAdv.Backend.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(ShopViewModel shopViewModel)
+        public async Task<IActionResult> Index(ShopViewModel shopViewModel)
         {
-            _shopRepository.AddShop(User, shopViewModel);
+            if (await _shopRepository.UserHasShopAsync(User))
+            {
+                await _shopRepository.UpdateShopAsync(User, shopViewModel);
+            }
+            else
+            {
+                await _shopRepository.AddShopAsync(User, shopViewModel);
+            }
             return View();
         }
     }
