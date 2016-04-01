@@ -59,10 +59,10 @@ namespace PuzzleAdv.Backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateLatLong(double latitude, double longitude, int shopId)
         {
-
             await _shopRepository.UpdateLatLongAsync(latitude, longitude, shopId);
 
-            return View();
+            ShopViewModel shopViewModel = _shopRepository.GetUserShop(User);
+            return View(nameof(Index), shopViewModel);
 
         }
     }

@@ -16,7 +16,8 @@ using Microsoft.AspNet.Mvc.Filters;
 using PuzzleAdv.Backend.Helpers;
 using PuzzleAdv.Backend.Interfaces;
 using PuzzleAdv.Backend.Repositories;
-
+using Microsoft.AspNet.Localization;
+using System.Globalization;
 
 namespace PuzzleAdv.Backend
 {
@@ -98,6 +99,20 @@ namespace PuzzleAdv.Backend
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var requestLocalizationOptions = new RequestLocalizationOptions
+            {
+                SupportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en-US")
+                },
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new CustomRequestCultureProvider(httpContext => Task.FromResult(new ProviderCultureResult("en-US"))),
+                    new AcceptLanguageHeaderRequestCultureProvider()
+                }
+            };
+
+            app.UseRequestLocalization(requestLocalizationOptions, new RequestCulture("en-US"));
             app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())

@@ -10,47 +10,57 @@
     <div class="container">
         <div class="ibox">
 
-            <div class="ibox-title">
-                <h4>Scheda negozio</h4>
-            </div>
+            <form asp-action="Index" method="post" class="form-horizontal" id="form">
 
-            <div class="ibox-content">
+                <div class="ibox-title">
+                    <h4>Scheda negozio</h4>
+                </div>
 
-                <div class="tabs-container">
+                <div class="ibox-content">
 
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-1"> Dati principali</a></li>
-                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-2"> Localizzazione</a></li>
-                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-3"> Orari</a></li>
-                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-4"> Foto</a></li>
-                    </ul>
+                    <div class="tabs-container">
 
-                    <div class="tab-content">
-                        <div id="tab-1" class="tab-pane active">
-                            <div class="panel-body">
-                                @Html.Partial("_MainDataPartial")
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1"> Dati principali</a></li>
+                            <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-2"> Localizzazione</a></li>
+                            <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-3"> Orari</a></li>
+                            <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-4"> Foto</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    @Html.Partial("_MainDataPartial")
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+
+                                    @Html.Partial("_LocalizationPartial")
+
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <div class="panel-body">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                                <div class="panel-body">
+                                    &nbsp;
+                                </div>
                             </div>
                         </div>
-                        <div id="tab-2" class="tab-pane">
-                            <div class="panel-body">
-                                @Html.Partial("_LocalizationPartial")
-                            </div>
-                        </div>
-                        <div id="tab-3" class="tab-pane">
-                            <div class="panel-body">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div id="tab-4" class="tab-pane">
-                            <div class="panel-body">
-                                &nbsp;
-                            </div>
-                        </div>
+
+                    </div>
+
+                    <div class="pull-right">
+                        <input type="submit" value="Salva" class="btn btn-w-m btn-success" />
                     </div>
 
                 </div>
 
-            </div>
+            </form>
 
         </div>
     </div>
@@ -59,12 +69,6 @@
 @if (Model != null)
 {
     @section Scripts {
-        <!--
-         You need to include this script on any page that has a Google Map.
-         When using Google Maps on your own site you MUST signup for your own API key at:
-         https://developers.google.com/maps/documentation/javascript/tutorial#api_key
-         After your sign up replace the key in the URL below..
-        -->
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZvQ4ass3ECLbNhK3OThHEpSV807Y3UE"></script>
 
@@ -96,41 +100,16 @@
                 var geocoder = geocoder = new google.maps.Geocoder();
 
                 google.maps.event.addListener(marker, "dragend", function (e) {
-                    var lat, lng, address;
+                    var lat, lng;
                     geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
-                            lat = marker.getPosition().lat();
-                            lng = marker.getPosition().lng();
-
-                            var form = $('#form');
-                            var formData = new FormData(form.get(0)); //get AntiForgeryToken
-
-                            formData.append('Latitude', lat);
-                            formData.append('Longitude', lng);
-                            formData.append('ShopId', @Model.ID);
-
-                            $.ajax('/Shop/UpdateLatLong', {
-                                method: "POST",
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function () {
-                                    console.log('Update success');
-                                },
-                                error: function () {
-                                    console.log('Update error');
-                                }
-
-                            });
-
-                            //address = results[0].formatted_address;
-                            //alert("Latitude: " + lat + "\nLongitude: " + lng + "\nAddress: " + address);
+                            $('#txtLat').val(marker.getPosition().lat());
+                            $('#txtLong').val(marker.getPosition().lng());
                         }
                     });
                 });
 
             };
-
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 initialize();
