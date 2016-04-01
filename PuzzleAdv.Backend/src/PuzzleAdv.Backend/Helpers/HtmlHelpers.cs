@@ -30,6 +30,11 @@ namespace PuzzleAdv.Backend
                 cssClass : String.Empty;
         }
 
+        public static string IsVisible(this IHtmlHelper html, bool modelExists)
+        {
+            return modelExists ? "visible" : "hidden";
+        }
+
         public static string PageClass(this IHtmlHelper htmlHelper)
         {
             string currentAction = (string)htmlHelper.ViewContext.RouteData.Values["action"];

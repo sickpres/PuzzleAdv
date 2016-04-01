@@ -1,3 +1,4 @@
+@using System.Linq
 @model PuzzleAdv.Backend.ViewModels.Shop.ShopViewModel
 
 @{
@@ -19,9 +20,9 @@
 
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#tab-1"> Dati principali</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2"> Localizzazione</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-3"> Orari</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-4"> Foto</a></li>
+                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-2"> Localizzazione</a></li>
+                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-3"> Orari</a></li>
+                        <li class="" style="visibility: @Html.IsVisible(Model != null);"><a data-toggle="tab" href="#tab-4"> Foto</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -55,4 +56,86 @@
     </div>
 </div>
 
+@if (Model != null)
+{
+    @section Scripts {
+        <!--
+         You need to include this script on any page that has a Google Map.
+         When using Google Maps on your own site you MUST signup for your own API key at:
+         https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+         After your sign up replace the key in the URL below..
+        -->
 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZvQ4ass3ECLbNhK3OThHEpSV807Y3UE"></script>
+
+        <script type="text/javascript">
+
+            var myCenter = new google.maps.LatLng(@Model.Latitude, @Model.Longitude);
+
+            var marker = new google.maps.Marker({
+                position: myCenter
+            });
+
+            function initialize() {
+
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 14,
+                    styles: [{ "featureType": "all", "elementType": "all", "stylers": [{ "saturation": 10 }, { "lightness": 30 }, { "gamma": 0.5 }, { "hue": "#169ece" }] }]
+                };
+
+                var map = new google.maps.Map(document.getElementById("map-canvas"), mapProp);
+
+                marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                    position: {lat: @Model.Latitude, lng: @Model.Longitude}
+                });
+
+                var geocoder = geocoder = new google.maps.Geocoder();
+
+                google.maps.event.addListener(marker, "dragend", function (e) {
+                    var lat, lng, address;
+                    geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            lat = marker.getPosition().lat();
+                            lng = marker.getPosition().lng();
+
+                            var form = $('#form');
+                            var formData = new FormData(form.get(0)); //get AntiForgeryToken
+
+                            formData.append('Latitude', lat);
+                            formData.append('Longitude', lng);
+                            formData.append('ShopId', @Model.ID);
+
+                            $.ajax('/Shop/UpdateLatLong', {
+                                method: "POST",
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function () {
+                                    console.log('Update success');
+                                },
+                                error: function () {
+                                    console.log('Update error');
+                                }
+
+                            });
+
+                            //address = results[0].formatted_address;
+                            //alert("Latitude: " + lat + "\nLongitude: " + lng + "\nAddress: " + address);
+                        }
+                    });
+                });
+
+            };
+
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                initialize();
+            });
+
+        </script>
+    }
+}

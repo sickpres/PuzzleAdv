@@ -13,10 +13,10 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: Oswald,Arial,serif;
-	color:#303030;
-	font-weight:300;
-	margin-top:0px;
+    font-family: Oswald,Arial,serif;
+    color: #303030;
+    font-weight: 300;
+    margin-top: 0px;
 }
 
 body.full-height-layout #wrapper,
@@ -235,7 +235,7 @@ ul.unstyled, ol.unstyled {
     color: #9a9a9a;
 }
 
-.footer  a, .footer  a:visited {
+.footer a, .footer a:visited {
     color: #fff;
 }
 
@@ -497,7 +497,7 @@ code {
     white-space: nowrap;
 }
 
-.form-horizontal .control-label{
+.form-horizontal .control-label {
     padding-top: 3px;
 }
 
@@ -590,6 +590,12 @@ table.table-mail tr td {
 .ibox-content {
     clear: both;
 }
+
+.ibox-content .row {
+    min-height: 640px;
+}
+
+
 
 .ibox-heading {
     background-color: #f3f6fb;

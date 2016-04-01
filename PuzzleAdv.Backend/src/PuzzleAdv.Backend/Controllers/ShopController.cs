@@ -49,7 +49,21 @@ namespace PuzzleAdv.Backend.Controllers
             {
                 await _shopRepository.AddShopAsync(User, shopViewModel);
             }
+            shopViewModel = _shopRepository.GetUserShop(User);
+            return View(shopViewModel);
+        }
+
+
+        // POST: Shop/UpdateLatLong
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateLatLong(double latitude, double longitude, int shopId)
+        {
+
+            await _shopRepository.UpdateLatLongAsync(latitude, longitude, shopId);
+
             return View();
+
         }
     }
 }

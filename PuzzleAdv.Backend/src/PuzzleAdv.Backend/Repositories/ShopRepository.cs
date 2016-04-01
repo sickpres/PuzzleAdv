@@ -37,7 +37,9 @@ namespace PuzzleAdv.Backend.Repositories
                     Name = x.Name,
                     ShortDesc = x.ShortDesc,
                     Website = x.Website,
-                    Phone = x.Phone
+                    Phone = x.Phone,
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude
                 }).SingleOrDefault();
         }
 
@@ -108,6 +110,20 @@ namespace PuzzleAdv.Backend.Repositories
             await _dbContext.SaveChangesAsync();
 
         }
+
+        public async Task UpdateLatLongAsync(double latitude, double longitude, int shopId)
+        {
+            Shop shop = _dbContext.Shop.FirstOrDefault(x => x.ID == shopId);
+
+            shop.Latitude = latitude;
+            shop.Longitude = longitude;
+
+            _dbContext.Shop.Update(shop);
+
+            await _dbContext.SaveChangesAsync();
+
+        }
+
 
         /*
         public IList<ShopDistance> GetPuzzleFromDbFunction()

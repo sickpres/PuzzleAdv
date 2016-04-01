@@ -2547,7 +2547,8 @@ div.dt-button-info {
 
 /* Google Maps */
 .google-map {
-  height: 300px; }
+  height: 480px;
+  width: 100%; }
 
 /* Validation */
 label.error {
@@ -3013,7 +3014,7 @@ a.forum-item-title:hover {
 
 .tabs-container .tab-pane .panel-body {
   border-top: none;
-  min-height: 540px; }
+  min-height: 580px; }
 
 .tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
   border: 1px solid #e7eaec;
@@ -3924,6 +3925,9 @@ table.table-mail tr td {
 
 .ibox-content {
   clear: both; }
+
+.ibox-content .row {
+  min-height: 640px; }
 
 .ibox-heading {
   background-color: #f3f6fb;

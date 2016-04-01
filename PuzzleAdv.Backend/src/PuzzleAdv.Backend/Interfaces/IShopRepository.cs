@@ -17,5 +17,7 @@ namespace PuzzleAdv.Backend.Interfaces
         Task AddShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel);
 
         Task UpdateShopAsync(ClaimsPrincipal user, ShopViewModel shopViewModel);
+
+        Task UpdateLatLongAsync(double latitude, double longitude, int shopId);
     }
 }

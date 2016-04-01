@@ -1,17 +1,11 @@
 @model PuzzleAdv.Backend.ViewModels.Shop.ShopViewModel
 
+<p>
+    Trascina il localizzatore nel punto esatto in cui si trova il tuo negozio.
+</p>
 
-<form asp-action="Index" class="form-horizontal">
-
-    <div class="form-group">
-        <label asp-for="Name" class="col-sm-3 control-label"></label>
-        <div class="col-sm-9">
-            <input asp-for="Name" type="text" class="form-control">
-            <span asp-validation-for="Name" class="text-danger" />
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
+<div id="map-canvas" class="google-map"></div>
 
 
 
-</form>
+

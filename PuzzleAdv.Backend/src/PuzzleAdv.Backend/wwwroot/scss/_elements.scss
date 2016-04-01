@@ -1458,8 +1458,10 @@ div.dt-button-info {
 
 /* Google Maps */
 .google-map {
-  height: 300px;
+  height: 480px;
+  width:100%
 }
+
 
 /* Validation */
 label.error {
@@ -2064,7 +2066,7 @@ a.forum-item-title:hover {
 
   .tab-pane .panel-body {
     border-top: none;
-    min-height: 540px;
+    min-height: 580px;
   }
 
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {

@@ -34,5 +34,9 @@ namespace PuzzleAdv.Backend.ViewModels.Shop
         [Display(Name = "Sito web")]
         public string Website { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
     }
 }
