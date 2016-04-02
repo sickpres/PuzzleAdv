@@ -54,10 +54,11 @@
 
                     </div>
 
-                    <div class="pull-right">
-                        <input type="submit" value="Salva" class="btn btn-w-m btn-success" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" value="Salva" class="btn btn-w-m btn-success pull-right" />
+                        </div>
                     </div>
-
                 </div>
 
             </form>
@@ -80,7 +81,8 @@
                 position: myCenter
             });
 
-            function initialize() {
+
+            function initialize_map() {
 
                 var mapProp = {
                     center: myCenter,
@@ -111,10 +113,24 @@
 
             };
 
+
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                initialize();
+                //save the latest tab;
+                localStorage.setItem('lastTab', $(e.target).attr('href'));
+                
+                //initialize map
+                if ($(e.target).attr('href') == '#tab-2'){
+                    initialize_map();
+                };
             });
 
+            //go to the latest tab, if it exists:
+            var lastTab = localStorage.getItem('lastTab');
+
+            if (lastTab) {
+                $('a[href="'+lastTab+'"]').click();
+            }
+           
         </script>
     }
 }

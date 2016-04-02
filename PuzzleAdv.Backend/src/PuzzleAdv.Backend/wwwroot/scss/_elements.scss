@@ -452,9 +452,9 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 .elements-list .list-group-item:hover {
   background: #f5f5f5;
   color: inherit;
-  border-color: #e7eaec;
-  /*border-bottom: 1px solid #e7eaec;*/
-  /*border-top: 1px solid #e7eaec;*/
+  border-color: #ddd;
+  /*border-bottom: 1px solid #ddd;*/
+  /*border-top: 1px solid #ddd;*/
   border-radius: 0;
 }
 
@@ -584,7 +584,7 @@ table.dataTable thead .sorting_desc_disabled {
 }
 
 .html5buttons a {
-  border: 1px solid #e7eaec;
+  border: 1px solid #ddd;
   background: #fff;
   color: #676a6c;
   box-shadow: none;
@@ -945,7 +945,7 @@ div.dt-button-info {
 .ui-sortable-placeholder {
   border: 1px dashed #cecece !important;
   visibility: visible !important;
-  background: #e7eaec;
+  background: #ddd;
 }
 
 .ibox.ui-sortable-placeholder {
@@ -1289,7 +1289,7 @@ div.dt-button-info {
   padding: 5px 10px;
   color: #333;
   text-decoration: none;
-  border: 1px solid #e7eaec;
+  border: 1px solid #ddd;
   background: #f5f5f5;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -1424,7 +1424,7 @@ div.dt-button-info {
 
 #nestable2 .dd-handle {
   color: inherit;
-  border: 1px dashed #e7eaec;
+  border: 1px dashed #ddd;
   background: #f5f5f5;
   padding: 10px;
 }
@@ -1458,7 +1458,7 @@ div.dt-button-info {
 
 /* Google Maps */
 .google-map {
-  height: 480px;
+  height: 445px;
   width:100%
 }
 
@@ -1489,7 +1489,7 @@ label.error {
 
 .ngH eaderCell {
   border-right: none;
-  border-bottom: 1px solid #e7eaec;
+  border-bottom: 1px solid #ddd;
 }
 
 .ngCell {
@@ -1509,7 +1509,7 @@ label.error {
 }
 
 .ngRow {
-  border-bottom: 1px solid #e7eaec;
+  border-bottom: 1px solid #ddd;
 }
 
 .ngCell {
@@ -1814,7 +1814,7 @@ a.forum-item-title:hover {
 }
 
 #vertical-timeline.light-timeline:before {
-  background: #e7eaec;
+  background: #ddd;
 }
 
 .dark-timeline .vertical-timeline-content:before {
@@ -2049,6 +2049,7 @@ a.forum-item-title:hover {
     border-radius: 2px;
     padding: 20px;
     position: relative;
+    margin-bottom: 15px;
   }
 
   .nav-tabs > li.active > a,
@@ -2066,7 +2067,7 @@ a.forum-item-title:hover {
 
   .tab-pane .panel-body {
     border-top: none;
-    min-height: 580px;
+    min-height: 520px;
   }
 
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -2205,7 +2206,7 @@ a.forum-item-title:hover {
   }
 
   .tabs-container .nav-tabs > li.active > a {
-    border-bottom: 1px solid #e7eaec !important;
+    border-bottom: 1px solid #ddd !important;
     margin: 0;
   }
 }

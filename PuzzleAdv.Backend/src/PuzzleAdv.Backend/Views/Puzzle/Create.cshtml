@@ -35,16 +35,19 @@
                     <h1>Immagine 16:9</h1>
                     <fieldset>
                         <h2>Configura l'immagine per schermi a 16:9</h2>
-                        <!-- Image Cropper -->
                         @Html.Partial("_ImageCropperPartial1")
                     </fieldset>
 
                     <h1>Immagine 4:3</h1>
                     <fieldset>
-
                         <h2>Configura l'immagine per schermi a 4:3</h2>
-                        <!-- Image Cropper -->
                         @Html.Partial("_ImageCropperPartial2")
+                    </fieldset>
+
+                    <h1>Priorit&aacute;</h1>
+                    <fieldset>
+                        <h2>Scegli il livello di priorit&aacute; da assegnare al tuo Puzzle:</h2>
+                        @Html.Partial("_Premium")
                     </fieldset>
 
                     <h1>Termini e condizioni</h1>
@@ -78,12 +81,14 @@
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
         <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib_bower/cropper/dist/cropper.css" />
         <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
     </environment>
 }
 
@@ -94,6 +99,7 @@
         <script src="~/lib_bower/cropper/dist/cropper.js"></script>
         <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
         <script src="~/lib/steps/jquery.steps.js"></script>
+        <script src="~/lib/iCheck/icheck.min.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib_bower/moment/moment.js"></script>
@@ -101,13 +107,22 @@
         <script src="~/lib_bower/cropper/dist/cropper.js"></script>
         <script src="~/lib/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
         <script src="~/lib/steps/jquery.steps.js"></script>
+        <script src="~/lib/iCheck/icheck.min.js"></script>
     </environment>
 
+   
     <script type="text/javascript">
 
 
         $(document).ready(function () {
 
+            // *** iCheck ***
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
 
             // *** steps ***
 

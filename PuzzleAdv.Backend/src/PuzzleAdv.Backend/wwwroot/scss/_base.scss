@@ -63,6 +63,10 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
+a {
+    outline: medium none !important;
+}
+
 .border-bottom {
     border-bottom: 1px solid $border-color !important;
 }
@@ -109,10 +113,8 @@ video {
     margin-bottom: 15px;
 }
 
-.fancybox img {
-    margin-bottom: 5px;
-    /* Only for demo */
-    width: 24%;
+.img-hover:hover {
+	cursor:url(../images/icon-cursor-search.png), auto;
 }
 
 /* Summernote text editor  */
@@ -591,12 +593,6 @@ table.table-mail tr td {
     clear: both;
 }
 
-.ibox-content .row {
-    min-height: 640px;
-}
-
-
-
 .ibox-heading {
     background-color: #f3f6fb;
     border-bottom: none;
@@ -836,7 +832,7 @@ table.table-mail tr td {
 
 .simple_tag {
     background-color: #f5f5f5;
-    border: 1px solid #e7eaec;
+    border: 1px solid #ddd;
     border-radius: 2px;
     color: inherit;
     font-size: 10px;
