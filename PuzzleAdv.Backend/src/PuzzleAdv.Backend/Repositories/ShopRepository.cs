@@ -9,6 +9,7 @@ using Microsoft.AspNet.Http;
 using System.Security.Claims;
 using PuzzleAdv.Backend.Helpers;
 using GoogleMaps.LocationServices;
+using System.Data.Entity;
 
 namespace PuzzleAdv.Backend.Repositories
 {
@@ -28,7 +29,8 @@ namespace PuzzleAdv.Backend.Repositories
 
         public ShopViewModel GetUserShop(ClaimsPrincipal user)
         {
-            return _dbContext.Shop.Where(x => x.UserId == user.GetUserId())
+            return _dbContext.Shop
+                .Where(x => x.UserId == user.GetUserId())
                 .Select(x => new ShopViewModel()
                 {
                     ID = x.ID,
@@ -39,7 +41,20 @@ namespace PuzzleAdv.Backend.Repositories
                     Website = x.Website,
                     Phone = x.Phone,
                     Latitude = x.Latitude,
-                    Longitude = x.Longitude
+                    Longitude = x.Longitude,
+                    OpeningHours = x.OpeningHours.Where(y => y.ShopId == x.ID)
+                                    .Select(z => new OpeningHoursViewModel()
+                                    {
+                                        ID = z.ID,
+                                        ShopId = z.ShopId,
+                                        DayOfWeek = z.DayOfWeek,
+                                        DayOfWeekName = StringHelper.GetLocalizedDayOfWeekName(z.DayOfWeek),
+                                        IsClosed = z.IsClosed,
+                                        Opening1 = z.Opening1,
+                                        Opening2 = z.Opening2,
+                                        Closing1 = z.Closing1,
+                                        Closing2 = z.Closing2
+                                    }).ToList()
                 }).SingleOrDefault();
         }
 

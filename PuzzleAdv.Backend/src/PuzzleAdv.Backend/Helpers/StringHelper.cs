@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PuzzleAdv.Backend.Models;
+using System.Globalization;
 
 namespace PuzzleAdv.Backend.Helpers
 {
@@ -80,6 +81,13 @@ namespace PuzzleAdv.Backend.Helpers
             }
 
             return returnVal;
+        }
+
+        public static string GetLocalizedDayOfWeekName(int dayOfWeek)
+        {
+            var cultureInfo = new CultureInfo("IT-it");
+            var info = cultureInfo.DateTimeFormat;
+            return info.GetDayName((DayOfWeek)dayOfWeek);
         }
 
     }

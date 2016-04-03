@@ -1,0 +1,48 @@
+@model PuzzleAdv.Backend.ViewModels.Shop.ShopViewModel
+
+<p>
+    &nbsp;
+</p>
+
+@foreach (var item in Model.OpeningHours)
+{ 
+    <div class="form-group">
+
+        <label class="col-sm-3 control-label">@item.DayOfWeekName</label>
+
+        <div class="col-sm-1">
+            <input asp-for="@item.Opening1" type="time" class="form-control">
+            <span asp-validation-for="@item.Opening1" class="text-danger" />
+        </div>
+        <div class="col-sm-1">
+            <input asp-for="@item.Closing1" type="time" class="form-control">
+            <span asp-validation-for="@item.Closing1" class="text-danger" />
+        </div>
+
+        <div class="col-sm-1">
+            &nbsp;
+        </div>
+
+        <div class="col-sm-1">
+            <input asp-for="@item.Opening2" type="time" class="form-control">
+            <span asp-validation-for="@item.Opening2" class="text-danger" />
+        </div>
+        <div class="col-sm-1">
+            <input asp-for="@item.Closing2" type="time" class="form-control">
+            <span asp-validation-for="@item.Closing2" class="text-danger" />
+        </div>
+
+        <div class="col-sm-1">
+            &nbsp;
+        </div>
+
+        <div class="col-sm-3">
+             <input checked="@item.IsClosed" type="checkbox" />&nbsp; Chiuso
+        </div>
+
+    </div>
+}
+
+<input asp-for="Latitude" id="txtLat" type="hidden">
+<input asp-for="Longitude" id="txtLong" type="hidden">
+

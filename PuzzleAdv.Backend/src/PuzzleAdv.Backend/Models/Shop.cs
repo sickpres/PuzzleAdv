@@ -38,5 +38,8 @@ namespace PuzzleAdv.Backend.Models
         //Foreign Keys
         public string UserId { get; set; }
 
+        //External Reference 
+        public virtual ICollection<OpeningHours> OpeningHours { get; set; }
+
     }
 }

@@ -8,9 +8,10 @@ using PuzzleAdv.Backend.Models;
 namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 {
     [DbContext(typeof(PuzzleAdvDbContext))]
-    partial class PuzzleAdvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160403105925_Puzzle6")]
+    partial class Puzzle6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -140,13 +141,6 @@ namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
                     b.Property<string>("Website");
 
                     b.HasKey("ID");
-                });
-
-            modelBuilder.Entity("PuzzleAdv.Backend.Models.OpeningHours", b =>
-                {
-                    b.HasOne("PuzzleAdv.Backend.Models.Shop")
-                        .WithMany()
-                        .HasForeignKey("ShopId");
                 });
 
             modelBuilder.Entity("PuzzleAdv.Backend.Models.Prize", b =>

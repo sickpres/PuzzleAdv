@@ -25,6 +25,7 @@ namespace PuzzleAdv.Backend.Models
         public DbSet<Shop> Shop { get; set; }
         public DbSet<Puzzle> Puzzle { get; set; }
         public DbSet<Prize> Prize { get; set; }
+        public DbSet<OpeningHours> OpeningHours { get; set; }
 
     }
 

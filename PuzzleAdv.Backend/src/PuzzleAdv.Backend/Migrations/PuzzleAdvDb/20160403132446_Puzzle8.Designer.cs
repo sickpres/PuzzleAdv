@@ -8,9 +8,10 @@ using PuzzleAdv.Backend.Models;
 namespace PuzzleAdv.Backend.Migrations.PuzzleAdvDb
 {
     [DbContext(typeof(PuzzleAdvDbContext))]
-    partial class PuzzleAdvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160403132446_Puzzle8")]
+    partial class Puzzle8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
